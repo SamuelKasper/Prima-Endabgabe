@@ -14,58 +14,44 @@ var LX_Final;
             this.allowMoveDown = true;
             this.moveCharacter = () => {
                 let offset = this.speedCharacter * f.Loop.timeFrameReal / 1000;
-                //console.log(this.allowMoveLeft, " ", this.allowMoveRight, " ", this.allowMoveTop, " ", this.allowMoveDown); 
                 //Move character
                 if (f.Keyboard.isPressedOne([f.KEYBOARD_CODE.A, f.KEYBOARD_CODE.ARROW_LEFT])) {
                     if (this.allowMoveLeft) {
                         this.mtxLocal.translateX(-offset);
-                        this.lastDiretionCharacter = "left";
                         this.setRectPosition();
                     }
                 }
                 if (f.Keyboard.isPressedOne([f.KEYBOARD_CODE.D, f.KEYBOARD_CODE.ARROW_RIGHT])) {
                     if (this.allowMoveRight) {
                         this.mtxLocal.translateX(+offset);
-                        this.lastDiretionCharacter = "right";
                         this.setRectPosition();
                     }
                 }
                 if (f.Keyboard.isPressedOne([f.KEYBOARD_CODE.W, f.KEYBOARD_CODE.ARROW_UP])) {
                     if (this.allowMoveTop) {
                         this.mtxLocal.translateY(+offset);
-                        this.lastDiretionCharacter = "up";
                         this.setRectPosition();
                     }
                 }
                 if (f.Keyboard.isPressedOne([f.KEYBOARD_CODE.S, f.KEYBOARD_CODE.ARROW_DOWN])) {
                     if (this.allowMoveDown) {
                         this.mtxLocal.translateY(-offset);
-                        this.lastDiretionCharacter = "down";
                         this.setRectPosition();
                     }
                 }
-                //Springen
+                //Jump (actually increasing speed instead of "jumping")
                 if (f.Keyboard.isPressedOne([f.KEYBOARD_CODE.SPACE])) {
                     if (this.jmpReady) {
-                        switch (this.lastDiretionCharacter) {
-                            case "left":
-                                this.mtxLocal.translateX(-5);
-                                break;
-                            case "right":
-                                this.mtxLocal.translateX(5);
-                                break;
-                            case "up":
-                                this.mtxLocal.translateY(5);
-                                break;
-                            case "down":
-                                this.mtxLocal.translateY(-5);
-                                break;
-                        }
+                        this.speedCharacter = 50;
+                        f.Time.game.setTimer(100, 1, this.resetSpeed);
                         this.jmpReady = false;
                         this.setRectPosition();
                         f.Time.game.setTimer(1000, 1, this.waitForJmpReady);
                     }
                 }
+            };
+            this.resetSpeed = () => {
+                this.speedCharacter = 4;
             };
             this.waitForJmpReady = () => {
                 this.jmpReady = true;

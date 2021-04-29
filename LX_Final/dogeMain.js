@@ -20,6 +20,8 @@ var LX_Final;
     let downBorderPosition = new f.Vector2(0, -16);
     let horizontalSize = new f.Vector2(1, 33);
     let verticalSize = new f.Vector2(32, 1);
+    //movement
+    let disabledMovement = false;
     function init(_event) {
         //Canvas holen und speichern
         const canvas = document.querySelector("canvas");
@@ -55,30 +57,35 @@ var LX_Final;
         mapBorderNode.addChild(downMapBoarder);
     }
     function checkCollision() {
-        //console.log("CHECKING");
         for (let border of mapBorderNode.getChildren()) {
             if (border.checkCollision(characterNode)) {
-                //console.log(border.name + "collision detected");
                 //if collisions
                 switch (border.name) {
-                    case "leftMapBorder":
+                    case "leftBorder":
                         characterNode.disableMove("left");
+                        disabledMovement = true;
                         break;
-                    case "rightMapBorder":
+                    case "rightBorder":
                         characterNode.disableMove("right");
+                        disabledMovement = true;
                         break;
-                    case "topMapBorder":
+                    case "topBorder":
                         characterNode.disableMove("top");
+                        disabledMovement = true;
                         break;
-                    case "downMapBorder":
+                    case "downBorder":
                         characterNode.disableMove("down");
+                        disabledMovement = true;
                         break;
                 }
             }
             else {
                 //if no collisions
-                characterNode.enableMove();
-                //console.log("no collision");
+                if (disabledMovement == true) {
+                    console.log("no collision");
+                    characterNode.enableMove();
+                    disabledMovement = false;
+                }
             }
         }
     }
