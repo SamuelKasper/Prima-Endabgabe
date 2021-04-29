@@ -13,6 +13,7 @@ var LX_Final;
             this.allowMoveTop = true;
             this.allowMoveDown = true;
             this.moveCharacter = () => {
+                console.log("moving");
                 let offset = this.speedCharacter * f.Loop.timeFrameReal / 1000;
                 //Move character
                 if (f.Keyboard.isPressedOne([f.KEYBOARD_CODE.A, f.KEYBOARD_CODE.ARROW_LEFT])) {
@@ -60,25 +61,35 @@ var LX_Final;
         }
         disableMove(direction) {
             switch (direction) {
-                case "left":
+                case "leftBorder":
                     this.allowMoveLeft = false;
                     break;
-                case "right":
+                case "rightBorder":
                     this.allowMoveRight = false;
                     break;
-                case "top":
+                case "topBorder":
                     this.allowMoveTop = false;
                     break;
-                case "down":
+                case "downBorder":
                     this.allowMoveDown = false;
                     break;
             }
         }
-        enableMove() {
-            this.allowMoveLeft = true;
-            this.allowMoveRight = true;
-            this.allowMoveTop = true;
-            this.allowMoveDown = true;
+        enableMove(direction) {
+            switch (direction) {
+                case "leftBorder":
+                    this.allowMoveLeft = true;
+                    break;
+                case "rightBorder":
+                    this.allowMoveRight = true;
+                    break;
+                case "topBorder":
+                    this.allowMoveTop = true;
+                    break;
+                case "downBorder":
+                    this.allowMoveDown = true;
+                    break;
+            }
         }
     }
     LX_Final.Character = Character;

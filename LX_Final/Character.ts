@@ -17,29 +17,40 @@ namespace LX_Final {
 
         public disableMove(direction: string): void {
             switch (direction) {
-                case "left":
+                case "leftBorder":
                     this.allowMoveLeft = false;
                     break;
-                case "right":
+                case "rightBorder":
                     this.allowMoveRight = false;
                     break;
-                case "top":
+                case "topBorder":
                     this.allowMoveTop = false;
                     break;
-                case "down":
+                case "downBorder":
                     this.allowMoveDown = false;
                     break;
             }
         }
 
-        public enableMove(): void {
-            this.allowMoveLeft = true;
-            this.allowMoveRight = true;
-            this.allowMoveTop = true;
-            this.allowMoveDown = true;
+        public enableMove(direction: string): void {
+            switch (direction) {
+                case "leftBorder":
+                    this.allowMoveLeft = true;
+                    break;
+                case "rightBorder":
+                    this.allowMoveRight = true;
+                    break;
+                case "topBorder":
+                    this.allowMoveTop = true;
+                    break;
+                case "downBorder":
+                    this.allowMoveDown = true;
+                    break;
+            }
         }
 
         public moveCharacter = (): void => {
+            console.log("moving");
             let offset: number = this.speedCharacter * f.Loop.timeFrameReal / 1000;
             //Move character
             if (f.Keyboard.isPressedOne([f.KEYBOARD_CODE.A, f.KEYBOARD_CODE.ARROW_LEFT])) {

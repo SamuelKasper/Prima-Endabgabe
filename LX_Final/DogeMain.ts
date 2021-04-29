@@ -20,8 +20,6 @@ namespace LX_Final {
     let downBorderPosition: f.Vector2 = new f.Vector2(0, -16);
     let horizontalSize: f.Vector2 = new f.Vector2(1, 33);
     let verticalSize: f.Vector2 = new f.Vector2(32, 1);
-    //movement
-    let disabledMovement: boolean = false;
 
     function init(_event: Event): void {
         //Canvas holen und speichern
@@ -68,32 +66,11 @@ namespace LX_Final {
     function checkCollision(): void {
         for (let border of mapBorderNode.getChildren() as MapBorder[]) {
             if (border.checkCollision(characterNode)) {
-                //if collisions
-                switch (border.name) {
-                    case "leftBorder":
-                        characterNode.disableMove("left");
-                        disabledMovement = true;
-                        break;
-                    case "rightBorder":
-                        characterNode.disableMove("right");
-                        disabledMovement = true;
-                        break;
-                    case "topBorder":
-                        characterNode.disableMove("top");
-                        disabledMovement = true;
-                        break;
-                    case "downBorder":
-                        characterNode.disableMove("down");
-                        disabledMovement = true;
-                        break;
-                }
+                //if collision
+                characterNode.disableMove(border.name);
             } else {
-                //if no collisions
-                if (disabledMovement == true) {
-                    console.log("no collision");
-                    characterNode.enableMove();
-                    disabledMovement = false;
-                }
+                //if no collision
+                characterNode.enableMove(border.name);
             }
         }
     }

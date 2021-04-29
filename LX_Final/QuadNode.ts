@@ -31,7 +31,7 @@ namespace LX_Final {
             this.rect.position.y = this.mtxLocal.translation.y - this.rect.size.y / 2;
         }
 
-      
+
     }
 
 }
