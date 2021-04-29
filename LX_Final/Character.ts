@@ -15,6 +15,7 @@ namespace LX_Final {
             this.getComponent(f.ComponentMaterial).clrPrimary = new f.Color(1, 1, 1, 1);
         }
 
+        //setting permission to move (allowMove...) to false
         public disableMove(direction: string): void {
             switch (direction) {
                 case "leftBorder":
@@ -32,6 +33,7 @@ namespace LX_Final {
             }
         }
 
+        //setting permission to move (allowMove...) to true
         public enableMove(direction: string): void {
             switch (direction) {
                 case "leftBorder":
@@ -49,6 +51,7 @@ namespace LX_Final {
             }
         }
 
+        //moves the character
         public moveCharacter = (): void => {
             console.log("moving");
             let offset: number = this.speedCharacter * f.Loop.timeFrameReal / 1000;
@@ -93,10 +96,12 @@ namespace LX_Final {
             }
         }
 
+        //reset movement speed after "jump"
         public resetSpeed = (): void => {
             this.speedCharacter = 4;
         }
 
+        //waiting for permission to "jump" again
         public waitForJmpReady = (): void => {
             this.jmpReady = true;
         }

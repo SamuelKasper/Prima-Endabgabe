@@ -12,6 +12,7 @@ var LX_Final;
             this.allowMoveRight = true;
             this.allowMoveTop = true;
             this.allowMoveDown = true;
+            //moves the character
             this.moveCharacter = () => {
                 console.log("moving");
                 let offset = this.speedCharacter * f.Loop.timeFrameReal / 1000;
@@ -51,14 +52,17 @@ var LX_Final;
                     }
                 }
             };
+            //reset movement speed after "jump"
             this.resetSpeed = () => {
                 this.speedCharacter = 4;
             };
+            //waiting for permission to "jump" again
             this.waitForJmpReady = () => {
                 this.jmpReady = true;
             };
             this.getComponent(f.ComponentMaterial).clrPrimary = new f.Color(1, 1, 1, 1);
         }
+        //setting permission to move (allowMove...) to false
         disableMove(direction) {
             switch (direction) {
                 case "leftBorder":
@@ -75,6 +79,7 @@ var LX_Final;
                     break;
             }
         }
+        //setting permission to move (allowMove...) to true
         enableMove(direction) {
             switch (direction) {
                 case "leftBorder":
