@@ -22,10 +22,15 @@ var LX_Final;
     let downBorderPosition = new f.Vector2(0, -16);
     let horizontalSize = new f.Vector2(1, 33);
     let verticalSize = new f.Vector2(32, 1);
+    //time
+    let timer;
     function init(_event) {
         //Canvas holen und speichern
         const canvas = document.querySelector("canvas");
-        //Camera erstellen und verschieben
+        //start button
+        let button = document.getElementById("startBtn");
+        button.addEventListener("click", hndButton);
+        //create and move camera
         let comCamera = new f.ComponentCamera();
         comCamera.mtxPivot.translateZ(40);
         comCamera.mtxPivot.translateY(0);
@@ -39,14 +44,18 @@ var LX_Final;
         rootNode.addChild(mapBorderNode);
         viewport.initialize("Viewport", rootNode, comCamera, canvas);
         viewport.draw();
+    }
+    function hndButton() {
         f.Loop.start(f.LOOP_MODE.TIME_REAL, 30);
         f.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, update);
         document.getElementById("state").innerHTML = "Gamestate: running";
+        timer = new f.Time();
     }
     function update(_event) {
         characterNode.moveCharacter();
         checkCollision();
         enemieNode.moveEnemie();
+        updateTimeScore();
         viewport.draw();
     }
     //setting up map borders and adding them as child
@@ -82,6 +91,17 @@ var LX_Final;
             document.getElementById("state").innerHTML = "Gamestate: Over";
             f.Loop.stop();
         }
+    }
+    //set time in html
+    function updateTimeScore() {
+        let timeObject = document.getElementById("time");
+        let scoreObject = document.getElementById("score");
+        let timeInSeconds = Math.floor(timer.get() / 1000);
+        let seconds = timeInSeconds % 60;
+        let minuts = Math.floor(timeInSeconds / 60);
+        timeObject.innerHTML = "timer: " + minuts + ":" + seconds;
+        let score = Math.floor(timeInSeconds / 15);
+        scoreObject.innerHTML = "score: " + score;
     }
 })(LX_Final || (LX_Final = {}));
 //# sourceMappingURL=DogeMain.js.map

@@ -22,12 +22,18 @@ namespace LX_Final {
     let downBorderPosition: f.Vector2 = new f.Vector2(0, -16);
     let horizontalSize: f.Vector2 = new f.Vector2(1, 33);
     let verticalSize: f.Vector2 = new f.Vector2(32, 1);
+    //time
+    let timer: f.Time;
 
     function init(_event: Event): void {
         //Canvas holen und speichern
         const canvas: HTMLCanvasElement = document.querySelector("canvas");
 
-        //Camera erstellen und verschieben
+        //start button
+        let button: HTMLButtonElement = <HTMLButtonElement>document.getElementById("startBtn");
+        button.addEventListener("click", hndButton);
+
+        //create and move camera
         let comCamera: f.ComponentCamera = new f.ComponentCamera();
         comCamera.mtxPivot.translateZ(40);
         comCamera.mtxPivot.translateY(0);
@@ -43,17 +49,20 @@ namespace LX_Final {
 
         viewport.initialize("Viewport", rootNode, comCamera, canvas);
         viewport.draw();
+    }
 
+    function hndButton(): void {
         f.Loop.start(f.LOOP_MODE.TIME_REAL, 30);
         f.Loop.addEventListener(f.EVENT.LOOP_FRAME, update);
         document.getElementById("state").innerHTML = "Gamestate: running";
-
+        timer = new f.Time();
     }
 
     function update(_event: Event): void {
         characterNode.moveCharacter();
         checkCollision();
         enemieNode.moveEnemie();
+        updateTimeScore();
         viewport.draw();
     }
 
@@ -93,5 +102,19 @@ namespace LX_Final {
             document.getElementById("state").innerHTML = "Gamestate: Over";
             f.Loop.stop();
         }
+    }
+
+    //set time in html
+    function updateTimeScore(): void {
+        let timeObject: HTMLParagraphElement = <HTMLParagraphElement>document.getElementById("time");
+        let scoreObject: HTMLParagraphElement = <HTMLParagraphElement>document.getElementById("score");
+        let timeInSeconds: number = Math.floor(timer.get() / 1000);
+        let seconds: number = timeInSeconds % 60;
+        let minuts: number = Math.floor(timeInSeconds / 60);
+        timeObject.innerHTML = "timer: " + minuts + ":" + seconds;
+
+        let score: number = Math.floor(timeInSeconds / 15);
+        scoreObject.innerHTML = "score: " + score;
+
     }
 }

@@ -9,7 +9,7 @@ namespace LX_Final {
             super("enemie", new f.Vector2(0, 4), new f.Vector2(3, 3));
             this.getComponent(f.ComponentMaterial).clrPrimary = new f.Color(0, 1, 0, 1);
         }
- 
+
         public moveEnemie = (): void => {
             let offsetEnemie: number = this.speedEnemie * f.Loop.timeFrameReal / 1000;
             this.mtxLocal.translateX(offsetEnemie * this.toggleX);
@@ -32,6 +32,10 @@ namespace LX_Final {
                     this.toggleY = 1;
                     break;
             }
+        }
+
+        public increaseSpeed(): void {
+            this.speedEnemie += 2;
         }
     }
 }

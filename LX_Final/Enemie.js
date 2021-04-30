@@ -32,6 +32,9 @@ var LX_Final;
                     break;
             }
         }
+        increaseSpeed() {
+            this.speedEnemie += 2;
+        }
     }
     LX_Final.Enemie = Enemie;
 })(LX_Final || (LX_Final = {}));

@@ -17,21 +17,42 @@
 </head>
 
 <body>
-    <div style="text-align: center;">
-    <h1>Doge</h1>
-    <p id="state">Spielstatus:</p>
-    <canvas width="500" height="500"></canvas>
-</div>
+    <div id="stats">
+        <p id="state">Gamestate:</p>
+        <p id="time">Time:</p>
+        <p id="score">Score:</p>
+        <button id="startBtn">Start</button>
+        <button id="resetBtn">Reset</button>
+    </div>
+    <canvas></canvas>
 </body>
 <style>
-    h1 {
-        font-family: Arial;
-        font-size: 20px;
+    #stats{
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        width: 500px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    p {
+        font-family: Calibri;
+        font-size: 16px;
+        padding-left: 15px;
+        padding-right: 15px;
+        margin: 0px;
     }
 
-    p {
-        font-family: Arial;
-        font-size: 16px;
+    button{
+        width: 50px;
+        height: 20px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    canvas{
+        width: 500px;
+        height: 500px;
     }
 </style>
 
