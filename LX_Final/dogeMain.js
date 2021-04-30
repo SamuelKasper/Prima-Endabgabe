@@ -29,7 +29,6 @@ var LX_Final;
         const canvas = document.querySelector("canvas");
         //start button
         let button = document.getElementById("startBtn");
-        button.addEventListener("click", hndButton);
         //create and move camera
         let comCamera = new f.ComponentCamera();
         comCamera.mtxPivot.translateZ(40);
@@ -44,12 +43,15 @@ var LX_Final;
         rootNode.addChild(mapBorderNode);
         viewport.initialize("Viewport", rootNode, comCamera, canvas);
         viewport.draw();
+        //enable start
+        button.addEventListener("click", hndButton);
     }
     function hndButton() {
-        f.Loop.start(f.LOOP_MODE.TIME_REAL, 30);
+        f.Loop.start(f.LOOP_MODE.TIME_REAL, 60);
         f.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, update);
         document.getElementById("state").innerHTML = "Gamestate: running";
         timer = new f.Time();
+        startIncreasingSpeed();
     }
     function update(_event) {
         characterNode.moveCharacter();
@@ -102,6 +104,11 @@ var LX_Final;
         timeObject.innerHTML = "timer: " + minuts + ":" + seconds;
         let score = Math.floor(timeInSeconds / 15);
         scoreObject.innerHTML = "score: " + score;
+    }
+    //increase enemie speed after 15 sec
+    function startIncreasingSpeed() {
+        enemieNode.increaseSpeed();
+        f.Time.game.setTimer(10000, 1, startIncreasingSpeed);
     }
 })(LX_Final || (LX_Final = {}));
 //# sourceMappingURL=DogeMain.js.map

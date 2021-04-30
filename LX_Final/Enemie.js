@@ -14,6 +14,10 @@ var LX_Final;
                 this.mtxLocal.translateY(offsetEnemie * 1.5 * this.toggleY);
                 this.setRectPosition();
             };
+            this.increaseSpeed = () => {
+                console.log("Enemie speed: " + this.speedEnemie);
+                this.speedEnemie += 1.5;
+            };
             this.getComponent(f.ComponentMaterial).clrPrimary = new f.Color(0, 1, 0, 1);
         }
         toggleDirection(collisionAt) {
@@ -31,9 +35,6 @@ var LX_Final;
                     this.toggleY = 1;
                     break;
             }
-        }
-        increaseSpeed() {
-            this.speedEnemie += 2;
         }
     }
     LX_Final.Enemie = Enemie;

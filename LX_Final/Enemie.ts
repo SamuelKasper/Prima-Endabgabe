@@ -34,8 +34,9 @@ namespace LX_Final {
             }
         }
 
-        public increaseSpeed(): void {
-            this.speedEnemie += 2;
+        public increaseSpeed = (): void  => {
+            console.log("Enemie speed: " + this.speedEnemie);
+            this.speedEnemie += 1.5;
         }
     }
 }

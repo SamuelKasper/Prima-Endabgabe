@@ -31,7 +31,6 @@ namespace LX_Final {
 
         //start button
         let button: HTMLButtonElement = <HTMLButtonElement>document.getElementById("startBtn");
-        button.addEventListener("click", hndButton);
 
         //create and move camera
         let comCamera: f.ComponentCamera = new f.ComponentCamera();
@@ -49,13 +48,17 @@ namespace LX_Final {
 
         viewport.initialize("Viewport", rootNode, comCamera, canvas);
         viewport.draw();
+
+        //enable start
+        button.addEventListener("click", hndButton);
     }
 
     function hndButton(): void {
-        f.Loop.start(f.LOOP_MODE.TIME_REAL, 30);
+        f.Loop.start(f.LOOP_MODE.TIME_REAL, 60);
         f.Loop.addEventListener(f.EVENT.LOOP_FRAME, update);
         document.getElementById("state").innerHTML = "Gamestate: running";
         timer = new f.Time();
+        startIncreasingSpeed();
     }
 
     function update(_event: Event): void {
@@ -116,5 +119,11 @@ namespace LX_Final {
         let score: number = Math.floor(timeInSeconds / 15);
         scoreObject.innerHTML = "score: " + score;
 
+    }
+
+    //increase enemie speed after 15 sec
+    function startIncreasingSpeed(): void {
+        enemieNode.increaseSpeed();
+        f.Time.game.setTimer(10000, 1, startIncreasingSpeed);
     }
 }
