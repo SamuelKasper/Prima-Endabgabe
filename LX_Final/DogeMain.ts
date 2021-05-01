@@ -124,6 +124,9 @@ namespace LX_Final {
         if (characterNode.checkCollision(enemieNode)) {
             setGameState("over");
             f.Loop.stop();
+            let gameoverText: HTMLParagraphElement = document.createElement("p");
+            gameoverText.innerHTML = "Game Over";
+            document.getElementById("gameover").appendChild(gameoverText);
         }
     }
 
