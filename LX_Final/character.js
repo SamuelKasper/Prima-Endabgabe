@@ -14,7 +14,6 @@ var LX_Final;
             this.allowMoveDown = true;
             //moves the character
             this.moveCharacter = () => {
-                console.log("moving");
                 let offset = this.speedCharacter * f.Loop.timeFrameReal / 1000;
                 //Move character
                 if (f.Keyboard.isPressedOne([f.KEYBOARD_CODE.A, f.KEYBOARD_CODE.ARROW_LEFT])) {
@@ -67,15 +66,31 @@ var LX_Final;
             switch (direction) {
                 case "leftBorder":
                     this.allowMoveLeft = false;
+                    //if behind border move back
+                    if (this.mtxLocal.translation.x < -15.05) {
+                        this.mtxLocal.translateX(0.05);
+                    }
                     break;
                 case "rightBorder":
                     this.allowMoveRight = false;
+                    //if behind border move back
+                    if (this.mtxLocal.translation.x > 15.05) {
+                        this.mtxLocal.translateX(-0.05);
+                    }
                     break;
                 case "topBorder":
                     this.allowMoveTop = false;
+                    //if behind border move back
+                    if (this.mtxLocal.translation.y > 15.05) {
+                        this.mtxLocal.translateY(-0.05);
+                    }
                     break;
                 case "downBorder":
                     this.allowMoveDown = false;
+                    //if behind border move back
+                    if (this.mtxLocal.translation.y < -15.05) {
+                        this.mtxLocal.translateY(0.05);
+                    }
                     break;
             }
         }

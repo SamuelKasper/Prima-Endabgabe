@@ -24,11 +24,20 @@ var LX_Final;
     let verticalSize = new f.Vector2(32, 1);
     //time
     let timer;
-    function init(_event) {
+    //buttons
+    let startBtn;
+    let resetBtn;
+    //gamestate
+    let gameState;
+    function init() {
         //Canvas holen und speichern
         const canvas = document.querySelector("canvas");
-        //start button
-        let button = document.getElementById("startBtn");
+        //start button init
+        startBtn = document.getElementById("startBtn");
+        //reset button init
+        resetBtn = document.getElementById("resetBtn");
+        //set gamestate
+        setGameState("waiting for start");
         //create and move camera
         let comCamera = new f.ComponentCamera();
         comCamera.mtxPivot.translateZ(40);
@@ -43,15 +52,21 @@ var LX_Final;
         rootNode.addChild(mapBorderNode);
         viewport.initialize("Viewport", rootNode, comCamera, canvas);
         viewport.draw();
-        //enable start
-        button.addEventListener("click", hndButton);
+        //add actionlistener on start button 
+        startBtn.addEventListener("click", hndStartButton);
+        //add actionlistener on reset button 
+        resetBtn.addEventListener("click", hndResetButton);
     }
-    function hndButton() {
+    function hndStartButton() {
         f.Loop.start(f.LOOP_MODE.TIME_REAL, 60);
         f.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, update);
-        document.getElementById("state").innerHTML = "Gamestate: running";
+        setGameState("running");
         timer = new f.Time();
         startIncreasingSpeed();
+        startBtn.blur(); //remove focus on button
+    }
+    function hndResetButton() {
+        location.reload();
     }
     function update(_event) {
         characterNode.moveCharacter();
@@ -90,7 +105,7 @@ var LX_Final;
         }
         /* collision character - enemie */
         if (characterNode.checkCollision(enemieNode)) {
-            document.getElementById("state").innerHTML = "Gamestate: Over";
+            setGameState("over");
             f.Loop.stop();
         }
     }
@@ -102,13 +117,20 @@ var LX_Final;
         let seconds = timeInSeconds % 60;
         let minuts = Math.floor(timeInSeconds / 60);
         timeObject.innerHTML = "timer: " + minuts + ":" + seconds;
-        let score = Math.floor(timeInSeconds / 15);
+        let score = Math.floor(timeInSeconds / 5);
         scoreObject.innerHTML = "score: " + score;
     }
     //increase enemie speed after 15 sec
     function startIncreasingSpeed() {
         enemieNode.increaseSpeed();
-        f.Time.game.setTimer(10000, 1, startIncreasingSpeed);
+        if (!gameState.includes("over")) {
+            f.Time.game.setTimer(10000, 1, startIncreasingSpeed);
+        }
+    }
+    //setting gameState
+    function setGameState(state) {
+        gameState = state;
+        document.getElementById("state").innerHTML = "Gamestate: " + gameState;
     }
 })(LX_Final || (LX_Final = {}));
 //# sourceMappingURL=DogeMain.js.map

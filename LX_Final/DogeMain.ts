@@ -24,13 +24,24 @@ namespace LX_Final {
     let verticalSize: f.Vector2 = new f.Vector2(32, 1);
     //time
     let timer: f.Time;
+    //buttons
+    let startBtn: HTMLButtonElement;
+    let resetBtn: HTMLButtonElement;
+    //gamestate
+    let gameState: string;
 
-    function init(_event: Event): void {
+    function init(): void {
         //Canvas holen und speichern
         const canvas: HTMLCanvasElement = document.querySelector("canvas");
 
-        //start button
-        let button: HTMLButtonElement = <HTMLButtonElement>document.getElementById("startBtn");
+        //start button init
+        startBtn = <HTMLButtonElement>document.getElementById("startBtn");
+
+        //reset button init
+        resetBtn = <HTMLButtonElement>document.getElementById("resetBtn");
+
+        //set gamestate
+        setGameState("waiting for start");
 
         //create and move camera
         let comCamera: f.ComponentCamera = new f.ComponentCamera();
@@ -49,16 +60,24 @@ namespace LX_Final {
         viewport.initialize("Viewport", rootNode, comCamera, canvas);
         viewport.draw();
 
-        //enable start
-        button.addEventListener("click", hndButton);
+        //add actionlistener on start button 
+        startBtn.addEventListener("click", hndStartButton);
+
+        //add actionlistener on reset button 
+        resetBtn.addEventListener("click", hndResetButton);
     }
 
-    function hndButton(): void {
+    function hndStartButton(): void {
         f.Loop.start(f.LOOP_MODE.TIME_REAL, 60);
         f.Loop.addEventListener(f.EVENT.LOOP_FRAME, update);
-        document.getElementById("state").innerHTML = "Gamestate: running";
+        setGameState("running");
         timer = new f.Time();
         startIncreasingSpeed();
+        startBtn.blur(); //remove focus on button
+    }
+
+    function hndResetButton(): void {
+        location.reload();
     }
 
     function update(_event: Event): void {
@@ -102,7 +121,7 @@ namespace LX_Final {
 
         /* collision character - enemie */
         if (characterNode.checkCollision(enemieNode)) {
-            document.getElementById("state").innerHTML = "Gamestate: Over";
+            setGameState("over");
             f.Loop.stop();
         }
     }
@@ -116,7 +135,7 @@ namespace LX_Final {
         let minuts: number = Math.floor(timeInSeconds / 60);
         timeObject.innerHTML = "timer: " + minuts + ":" + seconds;
 
-        let score: number = Math.floor(timeInSeconds / 15);
+        let score: number = Math.floor(timeInSeconds / 5);
         scoreObject.innerHTML = "score: " + score;
 
     }
@@ -124,6 +143,14 @@ namespace LX_Final {
     //increase enemie speed after 15 sec
     function startIncreasingSpeed(): void {
         enemieNode.increaseSpeed();
-        f.Time.game.setTimer(10000, 1, startIncreasingSpeed);
+        if (!gameState.includes("over")) {
+            f.Time.game.setTimer(10000, 1, startIncreasingSpeed);
+        }
+    }
+
+    //setting gameState
+    function setGameState(state: string): void {
+        gameState = state;
+        document.getElementById("state").innerHTML = "Gamestate: " + gameState;
     }
 }
