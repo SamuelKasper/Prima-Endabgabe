@@ -74,6 +74,7 @@ namespace LX_Final {
         timer = new f.Time();
         startIncreasingSpeed();
         startBtn.blur(); //remove focus on button
+        startBtn.disabled = true;
     }
 
     function hndResetButton(): void {

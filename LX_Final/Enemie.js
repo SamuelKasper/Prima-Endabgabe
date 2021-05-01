@@ -5,7 +5,7 @@ var LX_Final;
     class Enemie extends LX_Final.QuadNode {
         constructor() {
             super("enemie", new f.Vector2(0, 4), new f.Vector2(3, 3));
-            this.speedEnemie = 5;
+            this.speedEnemie = 5; //5
             this.toggleX = 1;
             this.toggleY = 1;
             //moves the enemie
@@ -15,10 +15,12 @@ var LX_Final;
                 this.mtxLocal.translateY(offsetEnemie * 1.7 * this.toggleY);
                 this.setRectPosition();
             };
-            //increase the speed the enemie is moving
+            //increase the speed the enemie is moving with. max = 50
             this.increaseSpeed = () => {
                 console.log("Enemie speed: " + this.speedEnemie);
-                this.speedEnemie += 1.5;
+                if (this.speedEnemie <= 50) {
+                    this.speedEnemie += 1.5;
+                }
             };
             this.getComponent(f.ComponentMaterial).clrPrimary = new f.Color(0, 1, 0, 1);
         }
