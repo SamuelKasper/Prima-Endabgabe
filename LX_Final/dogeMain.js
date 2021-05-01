@@ -121,7 +121,7 @@ var LX_Final;
         let seconds = timeInSeconds % 60;
         let minuts = Math.floor(timeInSeconds / 60);
         timeObject.innerHTML = "timer: " + minuts + ":" + seconds;
-        let score = Math.floor(timeInSeconds / 5);
+        let score = Math.floor(timeInSeconds / 3);
         scoreObject.innerHTML = "score: " + score;
     }
     //increase enemie speed after 15 sec

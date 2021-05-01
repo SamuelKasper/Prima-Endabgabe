@@ -139,7 +139,7 @@ namespace LX_Final {
         let minuts: number = Math.floor(timeInSeconds / 60);
         timeObject.innerHTML = "timer: " + minuts + ":" + seconds;
 
-        let score: number = Math.floor(timeInSeconds / 5);
+        let score: number = Math.floor(timeInSeconds / 3);
         scoreObject.innerHTML = "score: " + score;
 
     }
