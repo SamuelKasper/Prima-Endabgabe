@@ -1,0 +1,2 @@
+Boden beginnt an der spielerposition an zu leuchten. Man hat eine 1/2 Sekunde zeit um von dem Feld wegzugehen.
+Bleibt man darauf stehen, hat man verloren. Das feld leuchtet eine Sekunde und verschwindet dann wieder.
