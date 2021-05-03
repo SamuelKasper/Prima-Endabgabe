@@ -184,7 +184,7 @@ namespace LX_Final {
         //activate trap after 1 second and start timer for the next trap
         if (!gameState.includes("over")) {
             f.Time.game.setTimer(1500, 1, trapNode.activateTrap);
-            f.Time.game.setTimer(7000, 1, startSettingTraps);
+            f.Time.game.setTimer(5000, 1, startSettingTraps);
         }
 
     }

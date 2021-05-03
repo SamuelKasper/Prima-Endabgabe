@@ -4,7 +4,7 @@ var LX_Final;
     var f = FudgeCore;
     class Trap extends LX_Final.QuadNode {
         constructor(x, y) {
-            super("enemie", new f.Vector2(x, y), new f.Vector2(3, 3));
+            super("enemie", new f.Vector2(x, y), new f.Vector2(2, 2));
             this.activateTrap = () => {
                 this.getComponent(f.ComponentMaterial).clrPrimary = new f.Color(1, 0, 0, 1);
                 LX_Final.trapActive = true;
