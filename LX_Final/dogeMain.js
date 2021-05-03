@@ -15,6 +15,7 @@ var LX_Final;
     LX_Final.trapActive = false;
     //Coin Node
     let coinNode;
+    let scoreIncrease = true;
     //mapBorder
     let mapBorderNode = new f.Node("borderNode");
     let leftMapBoarder;
@@ -133,15 +134,18 @@ var LX_Final;
         /* collision character - coin */
         if (characterNode.checkCollision(coinNode)) {
             rootNode.removeChild(coinNode);
-            //cut off everything except bevor =
-            let scoreString = document.getElementById("score").innerHTML;
-            let stringParts = scoreString.split(":");
-            console.log(stringParts[1]);
-            //convert number to type number
-            let score = parseInt(stringParts[1]);
-            //set new score
-            score += 5;
-            document.getElementById("score").innerHTML = "score: " + score.toString();
+            if (scoreIncrease) {
+                //cut off everything except bevor =
+                let scoreString = document.getElementById("score").innerHTML;
+                let stringParts = scoreString.split(":");
+                console.log(stringParts[1]);
+                //convert number to type number
+                let score = parseInt(stringParts[1]);
+                //set new score
+                score += 3;
+                document.getElementById("score").innerHTML = "score: " + score.toString();
+                scoreIncrease = false;
+            }
         }
     }
     //set time in html
@@ -195,17 +199,21 @@ var LX_Final;
     }
     //placing coins
     function startPlacingCoins() {
+        //remove coinNode if existing
         if (coinNode) {
             rootNode.removeChild(coinNode);
         }
         else {
             console.log("no coinNode found");
         }
+        //create new coin at random position
         coinNode = new LX_Final.Coins(getRandomPosition(), getRandomPosition());
         rootNode.addChild(coinNode);
+        //repeat if not game over
         if (!gameState.includes("over")) {
             f.Time.game.setTimer(4000, 1, startPlacingCoins);
         }
+        scoreIncrease = true;
     }
     //generate random number between -15.5 and 15.5
     function getRandomPosition() {

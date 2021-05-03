@@ -15,6 +15,7 @@ namespace LX_Final {
     export let trapActive: boolean = false;
     //Coin Node
     let coinNode: Coins;
+    let scoreIncrease: boolean = true;
     //mapBorder
     let mapBorderNode: f.Node = new f.Node("borderNode");
     let leftMapBoarder: MapBorder;
@@ -151,6 +152,8 @@ namespace LX_Final {
         /* collision character - coin */
         if (characterNode.checkCollision(coinNode)) {
             rootNode.removeChild(coinNode);
+            
+            if(scoreIncrease){
             //cut off everything except bevor =
             let scoreString: string = document.getElementById("score").innerHTML;
             let stringParts: string[] = scoreString.split(":");
@@ -158,9 +161,10 @@ namespace LX_Final {
             //convert number to type number
             let score: number = parseInt(stringParts[1]);
             //set new score
-            score += 5;
+            score += 3;
             document.getElementById("score").innerHTML = "score: " + score.toString();
-            
+            scoreIncrease = false;
+        }
         }
     }
 
@@ -220,17 +224,21 @@ namespace LX_Final {
 
     //placing coins
     function startPlacingCoins(): void {
+        //remove coinNode if existing
         if (coinNode) {
             rootNode.removeChild(coinNode);
         } else {
             console.log("no coinNode found");
         }
+        //create new coin at random position
         coinNode = new Coins(getRandomPosition(), getRandomPosition());
         rootNode.addChild(coinNode);
 
+        //repeat if not game over
         if (!gameState.includes("over")) {
             f.Time.game.setTimer(4000, 1, startPlacingCoins);
         }
+        scoreIncrease = true;
     }
 
     //generate random number between -15.5 and 15.5
