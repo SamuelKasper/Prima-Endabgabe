@@ -152,19 +152,19 @@ namespace LX_Final {
         /* collision character - coin */
         if (characterNode.checkCollision(coinNode)) {
             rootNode.removeChild(coinNode);
-            
-            if(scoreIncrease){
-            //cut off everything except bevor =
-            let scoreString: string = document.getElementById("score").innerHTML;
-            let stringParts: string[] = scoreString.split(":");
-            console.log(stringParts[1]);
-            //convert number to type number
-            let score: number = parseInt(stringParts[1]);
-            //set new score
-            score += 3;
-            document.getElementById("score").innerHTML = "score: " + score.toString();
-            scoreIncrease = false;
-        }
+            //ScoreIncrease to prevent multiple increases of score at the same coin
+            if (scoreIncrease) {
+                //cut off everything except bevor =
+                let scoreString: string = document.getElementById("score").innerHTML;
+                let stringParts: string[] = scoreString.split(":");
+                console.log(stringParts[1]);
+                //convert number to type number
+                let score: number = parseInt(stringParts[1]);
+                //set new score
+                score += 3;
+                document.getElementById("score").innerHTML = "score: " + score.toString();
+                scoreIncrease = false;
+            }
         }
     }
 

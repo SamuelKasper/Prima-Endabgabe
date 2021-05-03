@@ -134,6 +134,7 @@ var LX_Final;
         /* collision character - coin */
         if (characterNode.checkCollision(coinNode)) {
             rootNode.removeChild(coinNode);
+            //ScoreIncrease to prevent multiple increases of score at the same coin
             if (scoreIncrease) {
                 //cut off everything except bevor =
                 let scoreString = document.getElementById("score").innerHTML;
