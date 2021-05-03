@@ -13,6 +13,8 @@ var LX_Final;
     //Trap Node
     let trapNode;
     LX_Final.trapActive = false;
+    //Coin Node
+    let coinNode;
     //mapBorder
     let mapBorderNode = new f.Node("borderNode");
     let leftMapBoarder;
@@ -67,6 +69,8 @@ var LX_Final;
         timer = new f.Time();
         startIncreasingSpeed();
         startSettingTraps();
+        startPlacingCoins();
+        updateScore();
         startBtn.blur(); //remove focus on button
         startBtn.disabled = true;
     }
@@ -77,7 +81,7 @@ var LX_Final;
         characterNode.moveCharacter();
         checkCollision();
         enemieNode.moveEnemie();
-        updateTimeScore();
+        updateTime();
         viewport.draw();
     }
     //setting up map borders and adding them as child
@@ -126,19 +130,44 @@ var LX_Final;
                 document.getElementById("gameover").appendChild(gameoverText);
             }
         }
+        /* collision character - coin */
+        if (characterNode.checkCollision(coinNode)) {
+            rootNode.removeChild(coinNode);
+            //cut off everything except bevor =
+            let scoreString = document.getElementById("score").innerHTML;
+            let stringParts = scoreString.split(":");
+            console.log(stringParts[1]);
+            //convert number to type number
+            let score = parseInt(stringParts[1]);
+            //set new score
+            score += 5;
+            document.getElementById("score").innerHTML = "score: " + score.toString();
+        }
     }
     //set time in html
-    function updateTimeScore() {
+    function updateTime() {
         let timeObject = document.getElementById("time");
-        let scoreObject = document.getElementById("score");
         let timeInSeconds = Math.floor(timer.get() / 1000);
         let seconds = timeInSeconds % 60;
         let minuts = Math.floor(timeInSeconds / 60);
         timeObject.innerHTML = "timer: " + minuts + ":" + seconds;
-        let score = Math.floor(timeInSeconds / 3);
-        scoreObject.innerHTML = "score: " + score;
     }
-    //increase enemie speed after 15 sec
+    //set score in html
+    function updateScore() {
+        if (!gameState.includes("over")) {
+            //cut off everything except bevor =
+            let scoreString = document.getElementById("score").innerHTML;
+            let stringParts = scoreString.split(":");
+            console.log(stringParts[1]);
+            //convert number to type number
+            let score = parseInt(stringParts[1]);
+            //set new score
+            score++;
+            document.getElementById("score").innerHTML = "score: " + score.toString();
+            f.Time.game.setTimer(3000, 1, updateScore);
+        }
+    }
+    //increase enemie speed after 10 sec
     function startIncreasingSpeed() {
         enemieNode.increaseSpeed();
         if (!gameState.includes("over")) {
@@ -163,6 +192,32 @@ var LX_Final;
             f.Time.game.setTimer(1500, 1, trapNode.activateTrap);
             f.Time.game.setTimer(5000, 1, startSettingTraps);
         }
+    }
+    //placing coins
+    function startPlacingCoins() {
+        if (coinNode) {
+            rootNode.removeChild(coinNode);
+        }
+        else {
+            console.log("no coinNode found");
+        }
+        coinNode = new LX_Final.Coins(getRandomPosition(), getRandomPosition());
+        rootNode.addChild(coinNode);
+        if (!gameState.includes("over")) {
+            f.Time.game.setTimer(4000, 1, startPlacingCoins);
+        }
+    }
+    //generate random number between -15.5 and 15.5
+    function getRandomPosition() {
+        let sign = Math.floor(Math.random() * 10);
+        let rnd;
+        if (sign % 2 == 0) {
+            rnd = Math.floor(Math.random() * (15.5));
+        }
+        else {
+            rnd = Math.floor(Math.random() * (-15.5));
+        }
+        return rnd;
     }
 })(LX_Final || (LX_Final = {}));
 //# sourceMappingURL=DogeMain.js.map

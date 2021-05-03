@@ -13,6 +13,8 @@ namespace LX_Final {
     //Trap Node
     let trapNode: Trap;
     export let trapActive: boolean = false;
+    //Coin Node
+    let coinNode: Coins;
     //mapBorder
     let mapBorderNode: f.Node = new f.Node("borderNode");
     let leftMapBoarder: MapBorder;
@@ -77,6 +79,8 @@ namespace LX_Final {
         timer = new f.Time();
         startIncreasingSpeed();
         startSettingTraps();
+        startPlacingCoins();
+        updateScore();
         startBtn.blur(); //remove focus on button
         startBtn.disabled = true;
     }
@@ -89,7 +93,7 @@ namespace LX_Final {
         characterNode.moveCharacter();
         checkCollision();
         enemieNode.moveEnemie();
-        updateTimeScore();
+        updateTime();
         viewport.draw();
     }
 
@@ -143,23 +147,49 @@ namespace LX_Final {
                 document.getElementById("gameover").appendChild(gameoverText);
             }
         }
+
+        /* collision character - coin */
+        if (characterNode.checkCollision(coinNode)) {
+            rootNode.removeChild(coinNode);
+            //cut off everything except bevor =
+            let scoreString: string = document.getElementById("score").innerHTML;
+            let stringParts: string[] = scoreString.split(":");
+            console.log(stringParts[1]);
+            //convert number to type number
+            let score: number = parseInt(stringParts[1]);
+            //set new score
+            score += 5;
+            document.getElementById("score").innerHTML = "score: " + score.toString();
+            
+        }
     }
 
     //set time in html
-    function updateTimeScore(): void {
+    function updateTime(): void {
         let timeObject: HTMLParagraphElement = <HTMLParagraphElement>document.getElementById("time");
-        let scoreObject: HTMLParagraphElement = <HTMLParagraphElement>document.getElementById("score");
         let timeInSeconds: number = Math.floor(timer.get() / 1000);
         let seconds: number = timeInSeconds % 60;
         let minuts: number = Math.floor(timeInSeconds / 60);
         timeObject.innerHTML = "timer: " + minuts + ":" + seconds;
-
-        let score: number = Math.floor(timeInSeconds / 3);
-        scoreObject.innerHTML = "score: " + score;
-
     }
 
-    //increase enemie speed after 15 sec
+    //set score in html
+    function updateScore(): void {
+        if (!gameState.includes("over")) {
+            //cut off everything except bevor =
+            let scoreString: string = document.getElementById("score").innerHTML;
+            let stringParts: string[] = scoreString.split(":");
+            console.log(stringParts[1]);
+            //convert number to type number
+            let score: number = parseInt(stringParts[1]);
+            //set new score
+            score++;
+            document.getElementById("score").innerHTML = "score: " + score.toString();
+            f.Time.game.setTimer(3000, 1, updateScore);
+        }
+    }
+
+    //increase enemie speed after 10 sec
     function startIncreasingSpeed(): void {
         enemieNode.increaseSpeed();
         if (!gameState.includes("over")) {
@@ -186,6 +216,32 @@ namespace LX_Final {
             f.Time.game.setTimer(1500, 1, trapNode.activateTrap);
             f.Time.game.setTimer(5000, 1, startSettingTraps);
         }
+    }
 
+    //placing coins
+    function startPlacingCoins(): void {
+        if (coinNode) {
+            rootNode.removeChild(coinNode);
+        } else {
+            console.log("no coinNode found");
+        }
+        coinNode = new Coins(getRandomPosition(), getRandomPosition());
+        rootNode.addChild(coinNode);
+
+        if (!gameState.includes("over")) {
+            f.Time.game.setTimer(4000, 1, startPlacingCoins);
+        }
+    }
+
+    //generate random number between -15.5 and 15.5
+    function getRandomPosition(): number {
+        let sign: number = Math.floor(Math.random() * 10);
+        let rnd: number;
+        if (sign % 2 == 0) {
+            rnd = Math.floor(Math.random() * (15.5));
+        } else {
+            rnd = Math.floor(Math.random() * (-15.5));
+        }
+        return rnd;
     }
 }
