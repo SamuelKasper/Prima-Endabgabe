@@ -10,6 +10,9 @@ var LX_Final;
     let characterNode;
     //Enemie Node
     let enemieNode;
+    //Trap Node
+    let trapNode;
+    LX_Final.trapActive = false;
     //mapBorder
     let mapBorderNode = new f.Node("borderNode");
     let leftMapBoarder;
@@ -63,6 +66,7 @@ var LX_Final;
         setGameState("running");
         timer = new f.Time();
         startIncreasingSpeed();
+        startSettingTraps();
         startBtn.blur(); //remove focus on button
         startBtn.disabled = true;
     }
@@ -112,6 +116,16 @@ var LX_Final;
             gameoverText.innerHTML = "Game Over";
             document.getElementById("gameover").appendChild(gameoverText);
         }
+        /* collision character - trap */
+        if (characterNode.checkCollision(trapNode)) {
+            if (LX_Final.trapActive) {
+                setGameState("over");
+                f.Loop.stop();
+                let gameoverText = document.createElement("p");
+                gameoverText.innerHTML = "Game Over";
+                document.getElementById("gameover").appendChild(gameoverText);
+            }
+        }
     }
     //set time in html
     function updateTimeScore() {
@@ -135,6 +149,20 @@ var LX_Final;
     function setGameState(state) {
         gameState = state;
         document.getElementById("state").innerHTML = "Gamestate: " + gameState;
+    }
+    //setting Traps at the players position
+    function startSettingTraps() {
+        //remove recent trap and disable trapActive
+        rootNode.removeChild(trapNode);
+        LX_Final.trapActive = false;
+        //create trapNode and add to root
+        trapNode = new LX_Final.Trap(characterNode.mtxLocal.translation.x, characterNode.mtxLocal.translation.y);
+        rootNode.addChild(trapNode);
+        //activate trap after 1 second and start timer for the next trap
+        if (!gameState.includes("over")) {
+            f.Time.game.setTimer(1500, 1, trapNode.activateTrap);
+            f.Time.game.setTimer(7000, 1, startSettingTraps);
+        }
     }
 })(LX_Final || (LX_Final = {}));
 //# sourceMappingURL=DogeMain.js.map

@@ -22,7 +22,7 @@ var LX_Final;
                     this.speedEnemie += 1.5;
                 }
             };
-            this.getComponent(f.ComponentMaterial).clrPrimary = new f.Color(0, 1, 0, 1);
+            this.getComponent(f.ComponentMaterial).clrPrimary = new f.Color(1, 0, 0, 1);
         }
         //change direction
         toggleDirection(collisionAt) {

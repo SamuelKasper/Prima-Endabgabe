@@ -7,7 +7,7 @@ namespace LX_Final {
 
         constructor() {
             super("enemie", new f.Vector2(0, 4), new f.Vector2(3, 3));
-            this.getComponent(f.ComponentMaterial).clrPrimary = new f.Color(0, 1, 0, 1);
+            this.getComponent(f.ComponentMaterial).clrPrimary = new f.Color(1, 0, 0, 1);
         }
 
         //moves the enemie

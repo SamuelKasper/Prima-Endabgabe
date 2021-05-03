@@ -4,7 +4,7 @@ namespace LX_Final {
     export class Character extends QuadNode {
         //Variables
         private jmpReady: boolean = true;
-        private speedCharacter: number = 4;
+        private speedCharacter: number = 7;
         private allowMoveLeft: boolean = true;
         private allowMoveRight: boolean = true;
         private allowMoveTop: boolean = true;
@@ -113,7 +113,7 @@ namespace LX_Final {
 
         //reset movement speed after "jump"
         public resetSpeed = (): void => {
-            this.speedCharacter = 4;
+            this.speedCharacter = 7;
         }
 
         //waiting for permission to "jump" again

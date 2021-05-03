@@ -5,7 +5,7 @@ var LX_Final;
     class MapBorder extends LX_Final.QuadNode {
         constructor(name, pos, size) {
             super(name, pos, size);
-            this.getComponent(f.ComponentMaterial).clrPrimary = new f.Color(1, 0, 0, 1);
+            this.getComponent(f.ComponentMaterial).clrPrimary = new f.Color(0.5, 0.5, 0.5, 1);
             this.setRectPosition();
         }
     }

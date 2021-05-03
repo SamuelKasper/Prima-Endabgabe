@@ -10,6 +10,9 @@ namespace LX_Final {
     let characterNode: Character;
     //Enemie Node
     let enemieNode: Enemie;
+    //Trap Node
+    let trapNode: Trap;
+    export let trapActive: boolean = false;
     //mapBorder
     let mapBorderNode: f.Node = new f.Node("borderNode");
     let leftMapBoarder: MapBorder;
@@ -73,6 +76,7 @@ namespace LX_Final {
         setGameState("running");
         timer = new f.Time();
         startIncreasingSpeed();
+        startSettingTraps();
         startBtn.blur(); //remove focus on button
         startBtn.disabled = true;
     }
@@ -128,6 +132,17 @@ namespace LX_Final {
             gameoverText.innerHTML = "Game Over";
             document.getElementById("gameover").appendChild(gameoverText);
         }
+
+        /* collision character - trap */
+        if (characterNode.checkCollision(trapNode)) {
+            if (trapActive) {
+                setGameState("over");
+                f.Loop.stop();
+                let gameoverText: HTMLParagraphElement = document.createElement("p");
+                gameoverText.innerHTML = "Game Over";
+                document.getElementById("gameover").appendChild(gameoverText);
+            }
+        }
     }
 
     //set time in html
@@ -156,5 +171,21 @@ namespace LX_Final {
     function setGameState(state: string): void {
         gameState = state;
         document.getElementById("state").innerHTML = "Gamestate: " + gameState;
+    }
+
+    //setting Traps at the players position
+    function startSettingTraps(): void {
+        //remove recent trap and disable trapActive
+        rootNode.removeChild(trapNode);
+        trapActive = false;
+        //create trapNode and add to root
+        trapNode = new Trap(characterNode.mtxLocal.translation.x, characterNode.mtxLocal.translation.y);
+        rootNode.addChild(trapNode);
+        //activate trap after 1 second and start timer for the next trap
+        if (!gameState.includes("over")) {
+            f.Time.game.setTimer(1500, 1, trapNode.activateTrap);
+            f.Time.game.setTimer(7000, 1, startSettingTraps);
+        }
+
     }
 }
