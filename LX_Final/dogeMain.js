@@ -16,6 +16,8 @@ var LX_Final;
     //Coin Node
     let coinNode;
     let scoreIncrease = true;
+    //Sound Node
+    let sound;
     //mapBorder
     let mapBorderNode = new f.Node("borderNode");
     let leftMapBoarder;
@@ -50,6 +52,7 @@ var LX_Final;
         comCamera.mtxPivot.translateY(0);
         comCamera.mtxPivot.rotateY(180);
         //creating children and adding them to rootNode
+        sound = new LX_Final.Sounds();
         characterNode = new LX_Final.Character();
         rootNode.addChild(characterNode);
         enemieNode = new LX_Final.Enemie();
@@ -64,6 +67,7 @@ var LX_Final;
         resetBtn.addEventListener("click", hndResetButton);
     }
     function hndStartButton() {
+        sound.playBackgroundMusic(true);
         f.Loop.start(f.LOOP_MODE.TIME_REAL, 60);
         f.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, update);
         setGameState("running");
@@ -120,6 +124,7 @@ var LX_Final;
             let gameoverText = document.createElement("p");
             gameoverText.innerHTML = "Game Over";
             document.getElementById("gameover").appendChild(gameoverText);
+            sound.playBackgroundMusic(false);
         }
         /* collision character - trap */
         if (characterNode.checkCollision(trapNode)) {
@@ -129,10 +134,12 @@ var LX_Final;
                 let gameoverText = document.createElement("p");
                 gameoverText.innerHTML = "Game Over";
                 document.getElementById("gameover").appendChild(gameoverText);
+                sound.playBackgroundMusic(false);
             }
         }
         /* collision character - coin */
         if (characterNode.checkCollision(coinNode)) {
+            sound.playSound(LX_Final.SoundList.collectCoin);
             rootNode.removeChild(coinNode);
             //ScoreIncrease to prevent multiple increases of score at the same coin
             if (scoreIncrease) {

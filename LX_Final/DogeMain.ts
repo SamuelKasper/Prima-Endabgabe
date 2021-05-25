@@ -16,6 +16,8 @@ namespace LX_Final {
     //Coin Node
     let coinNode: Coins;
     let scoreIncrease: boolean = true;
+    //Sound Node
+    let sound: Sounds;
     //mapBorder
     let mapBorderNode: f.Node = new f.Node("borderNode");
     let leftMapBoarder: MapBorder;
@@ -56,6 +58,7 @@ namespace LX_Final {
         comCamera.mtxPivot.rotateY(180);
 
         //creating children and adding them to rootNode
+        sound = new Sounds();
         characterNode = new Character();
         rootNode.addChild(characterNode);
         enemieNode = new Enemie();
@@ -65,7 +68,7 @@ namespace LX_Final {
 
         viewport.initialize("Viewport", rootNode, comCamera, canvas);
         viewport.draw();
-
+        
         //add actionlistener on start button 
         startBtn.addEventListener("click", hndStartButton);
 
@@ -74,6 +77,7 @@ namespace LX_Final {
     }
 
     function hndStartButton(): void {
+        sound.playBackgroundMusic(true);
         f.Loop.start(f.LOOP_MODE.TIME_REAL, 60);
         f.Loop.addEventListener(f.EVENT.LOOP_FRAME, update);
         setGameState("running");
@@ -136,6 +140,7 @@ namespace LX_Final {
             let gameoverText: HTMLParagraphElement = document.createElement("p");
             gameoverText.innerHTML = "Game Over";
             document.getElementById("gameover").appendChild(gameoverText);
+            sound.playBackgroundMusic(false);
         }
 
         /* collision character - trap */
@@ -146,11 +151,13 @@ namespace LX_Final {
                 let gameoverText: HTMLParagraphElement = document.createElement("p");
                 gameoverText.innerHTML = "Game Over";
                 document.getElementById("gameover").appendChild(gameoverText);
+                sound.playBackgroundMusic(false);
             }
         }
 
         /* collision character - coin */
         if (characterNode.checkCollision(coinNode)) {
+            sound.playSound(SoundList.collectCoin);
             rootNode.removeChild(coinNode);
             //ScoreIncrease to prevent multiple increases of score at the same coin
             if (scoreIncrease) {
