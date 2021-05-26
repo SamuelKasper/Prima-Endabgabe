@@ -30,13 +30,13 @@ namespace LX_Final {
     let downBorderPosition: f.Vector2 = new f.Vector2(0, -16);
     let horizontalSize: f.Vector2 = new f.Vector2(1, 33);
     let verticalSize: f.Vector2 = new f.Vector2(32, 1);
-    //time
-    let timer: f.Time;
     //buttons
     let startBtn: HTMLButtonElement;
     let resetBtn: HTMLButtonElement;
     //gamestate
-    let gameState: string;
+    export let gameState: string;
+    //TimeScore
+    let timescore: TimeScore; 
 
     function init(): void {
         //Canvas holen und speichern
@@ -81,11 +81,11 @@ namespace LX_Final {
         f.Loop.start(f.LOOP_MODE.TIME_REAL, 60);
         f.Loop.addEventListener(f.EVENT.LOOP_FRAME, update);
         setGameState("running");
-        timer = new f.Time();
+        timescore = new TimeScore();
         startIncreasingSpeed();
         startSettingTraps();
         startPlacingCoins();
-        updateScore();
+        timescore.updateScore();
         startBtn.blur(); //remove focus on button
         startBtn.disabled = true;
     }
@@ -98,7 +98,7 @@ namespace LX_Final {
         characterNode.moveCharacter();
         checkCollision();
         enemieNode.moveEnemie();
-        updateTime();
+        timescore.updateTime();
         viewport.draw();
     }
 
@@ -174,7 +174,7 @@ namespace LX_Final {
             }
         }
     }
-
+/*
     //set time in html
     function updateTime(): void {
         let timeObject: HTMLParagraphElement = <HTMLParagraphElement>document.getElementById("time");
@@ -199,6 +199,7 @@ namespace LX_Final {
             f.Time.game.setTimer(3000, 1, updateScore);
         }
     }
+    */
 
     //increase enemie speed after 10 sec
     function startIncreasingSpeed(): void {

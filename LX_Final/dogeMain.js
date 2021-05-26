@@ -30,13 +30,11 @@ var LX_Final;
     let downBorderPosition = new f.Vector2(0, -16);
     let horizontalSize = new f.Vector2(1, 33);
     let verticalSize = new f.Vector2(32, 1);
-    //time
-    let timer;
     //buttons
     let startBtn;
     let resetBtn;
-    //gamestate
-    let gameState;
+    //TimeScore
+    let timescore;
     function init() {
         //Canvas holen und speichern
         const canvas = document.querySelector("canvas");
@@ -71,11 +69,11 @@ var LX_Final;
         f.Loop.start(f.LOOP_MODE.TIME_REAL, 60);
         f.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, update);
         setGameState("running");
-        timer = new f.Time();
+        timescore = new LX_Final.TimeScore();
         startIncreasingSpeed();
         startSettingTraps();
         startPlacingCoins();
-        updateScore();
+        timescore.updateScore();
         startBtn.blur(); //remove focus on button
         startBtn.disabled = true;
     }
@@ -86,7 +84,7 @@ var LX_Final;
         characterNode.moveCharacter();
         checkCollision();
         enemieNode.moveEnemie();
-        updateTime();
+        timescore.updateTime();
         viewport.draw();
     }
     //setting up map borders and adding them as child
@@ -156,40 +154,43 @@ var LX_Final;
             }
         }
     }
-    //set time in html
-    function updateTime() {
-        let timeObject = document.getElementById("time");
-        let timeInSeconds = Math.floor(timer.get() / 1000);
-        let seconds = timeInSeconds % 60;
-        let minuts = Math.floor(timeInSeconds / 60);
-        timeObject.innerHTML = "timer: " + minuts + ":" + seconds;
-    }
-    //set score in html
-    function updateScore() {
-        if (!gameState.includes("over")) {
-            //cut off everything except bevor =
-            let scoreString = document.getElementById("score").innerHTML;
-            let stringParts = scoreString.split(":");
-            console.log(stringParts[1]);
-            //convert number to type number
-            let score = parseInt(stringParts[1]);
-            //set new score
-            score++;
-            document.getElementById("score").innerHTML = "score: " + score.toString();
-            f.Time.game.setTimer(3000, 1, updateScore);
+    /*
+        //set time in html
+        function updateTime(): void {
+            let timeObject: HTMLParagraphElement = <HTMLParagraphElement>document.getElementById("time");
+            let timeInSeconds: number = Math.floor(timer.get() / 1000);
+            let seconds: number = timeInSeconds % 60;
+            let minuts: number = Math.floor(timeInSeconds / 60);
+            timeObject.innerHTML = "timer: " + minuts + ":" + seconds;
         }
-    }
+    
+        //set score in html
+        function updateScore(): void {
+            if (!gameState.includes("over")) {
+                //cut off everything except bevor =
+                let scoreString: string = document.getElementById("score").innerHTML;
+                let stringParts: string[] = scoreString.split(":");
+                console.log(stringParts[1]);
+                //convert number to type number
+                let score: number = parseInt(stringParts[1]);
+                //set new score
+                score++;
+                document.getElementById("score").innerHTML = "score: " + score.toString();
+                f.Time.game.setTimer(3000, 1, updateScore);
+            }
+        }
+        */
     //increase enemie speed after 10 sec
     function startIncreasingSpeed() {
         enemieNode.increaseSpeed();
-        if (!gameState.includes("over")) {
+        if (!LX_Final.gameState.includes("over")) {
             f.Time.game.setTimer(10000, 1, startIncreasingSpeed);
         }
     }
     //setting gameState
     function setGameState(state) {
-        gameState = state;
-        document.getElementById("state").innerHTML = "Gamestate: " + gameState;
+        LX_Final.gameState = state;
+        document.getElementById("state").innerHTML = "Gamestate: " + LX_Final.gameState;
     }
     //setting Traps at the players position
     function startSettingTraps() {
@@ -200,7 +201,7 @@ var LX_Final;
         trapNode = new LX_Final.Trap(characterNode.mtxLocal.translation.x, characterNode.mtxLocal.translation.y);
         rootNode.addChild(trapNode);
         //activate trap after 1 second and start timer for the next trap
-        if (!gameState.includes("over")) {
+        if (!LX_Final.gameState.includes("over")) {
             f.Time.game.setTimer(1500, 1, trapNode.activateTrap);
             f.Time.game.setTimer(5000, 1, startSettingTraps);
         }
@@ -218,7 +219,7 @@ var LX_Final;
         coinNode = new LX_Final.Coins(getRandomPosition(), getRandomPosition());
         rootNode.addChild(coinNode);
         //repeat if not game over
-        if (!gameState.includes("over")) {
+        if (!LX_Final.gameState.includes("over")) {
             f.Time.game.setTimer(4000, 1, startPlacingCoins);
         }
         scoreIncrease = true;
