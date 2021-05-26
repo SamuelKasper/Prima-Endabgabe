@@ -10,7 +10,6 @@ namespace LX_Final {
     let coinNode: Coins;
     let scoreIncrease: boolean = true;
     let sound: Sounds;
-    let mapBorderNode: f.Node; 
     let leftMapBoarder: MapBorder;
     let rightMapBoarder: MapBorder;
     let topMapBoarder: MapBorder;
@@ -24,10 +23,14 @@ namespace LX_Final {
     let startBtn: HTMLButtonElement;
     let resetBtn: HTMLButtonElement;
     let timescore: TimeScore; 
+    export let mapBorderNode: f.Node; 
     export let trapActive: boolean = false;
     export let gameState: string;
+    export let externalData: ExternalData; 
 
-    function init(): void {
+    async function init(): Promise<void> {
+        await loadExternalData("./ExternalData/externalData.json");
+
         const canvas: HTMLCanvasElement = document.querySelector("canvas");
         startBtn = <HTMLButtonElement>document.getElementById("startBtn");
         resetBtn = <HTMLButtonElement>document.getElementById("resetBtn");
@@ -58,6 +61,11 @@ namespace LX_Final {
         //adding listener to buttons
         startBtn.addEventListener("click", hndStartButton);
         resetBtn.addEventListener("click", hndResetButton);
+    }
+
+    async function loadExternalData(_url: string): Promise<void> {
+        let response: Response = await fetch(_url);
+        externalData = await response.json();
     }
 
     function hndStartButton(): void {
@@ -175,8 +183,8 @@ namespace LX_Final {
         rootNode.addChild(trapNode);
         //activate trap after 1 second and start timer for the next trap
         if (!gameState.includes("over")) {
-            f.Time.game.setTimer(1500, 1, trapNode.activateTrap);
-            f.Time.game.setTimer(5000, 1, startSettingTraps);
+            f.Time.game.setTimer(externalData.configureTraps.activationTime, 1, trapNode.activateTrap);
+            f.Time.game.setTimer(externalData.configureTraps.spawningRate, 1, startSettingTraps);
         }
     }
 
@@ -192,7 +200,7 @@ namespace LX_Final {
 
         //repeat if not game over
         if (!gameState.includes("over")) {
-            f.Time.game.setTimer(4000, 1, startPlacingCoins);
+            f.Time.game.setTimer(externalData.configureCoins.spawningRate, 1, startPlacingCoins);
         }
         scoreIncrease = true;
     }

@@ -7,7 +7,7 @@ var LX_Final;
             super("character", new f.Vector2(0, 0), new f.Vector2(1, 1));
             //Variables
             this.jmpReady = true;
-            this.speedCharacter = 7;
+            this.speedCharacter = LX_Final.externalData.configureAvatar.movementSpeed;
             this.allowMoveLeft = true;
             this.allowMoveRight = true;
             this.allowMoveTop = true;
@@ -53,7 +53,7 @@ var LX_Final;
             };
             //reset movement speed after "jump"
             this.resetSpeed = () => {
-                this.speedCharacter = 7;
+                this.speedCharacter = LX_Final.externalData.configureAvatar.movementSpeed;
             };
             //waiting for permission to "jump" again
             this.waitForJmpReady = () => {

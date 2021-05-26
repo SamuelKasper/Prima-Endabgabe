@@ -18,7 +18,7 @@ var LX_Final;
             //increase enemie speed every 10 sec until max of speed 50
             this.startIncreasingSpeed = () => {
                 console.log("Enemie speed: " + this.speedEnemie);
-                if (this.speedEnemie <= 50) {
+                if (this.speedEnemie <= LX_Final.externalData.configureEnemie.maxSpeed) {
                     this.speedEnemie += 1.5;
                 }
                 if (!LX_Final.gameState.includes("over")) {

@@ -11,7 +11,6 @@ var LX_Final;
     let coinNode;
     let scoreIncrease = true;
     let sound;
-    let mapBorderNode;
     let leftMapBoarder;
     let rightMapBoarder;
     let topMapBoarder;
@@ -26,7 +25,8 @@ var LX_Final;
     let resetBtn;
     let timescore;
     LX_Final.trapActive = false;
-    function init() {
+    async function init() {
+        await loadExternalData("./ExternalData/externalData.json");
         const canvas = document.querySelector("canvas");
         startBtn = document.getElementById("startBtn");
         resetBtn = document.getElementById("resetBtn");
@@ -41,17 +41,21 @@ var LX_Final;
         sound = new LX_Final.Sounds();
         characterNode = new LX_Final.Character();
         enemieNode = new LX_Final.Enemie();
-        mapBorderNode = new f.Node("borderNode");
+        LX_Final.mapBorderNode = new f.Node("borderNode");
         addChildMapBorder();
         rootNode.addChild(enemieNode);
         rootNode.addChild(characterNode);
-        rootNode.addChild(mapBorderNode);
+        rootNode.addChild(LX_Final.mapBorderNode);
         //initialize viewport
         viewport.initialize("Viewport", rootNode, comCamera, canvas);
         viewport.draw();
         //adding listener to buttons
         startBtn.addEventListener("click", hndStartButton);
         resetBtn.addEventListener("click", hndResetButton);
+    }
+    async function loadExternalData(_url) {
+        let response = await fetch(_url);
+        LX_Final.externalData = await response.json();
     }
     function hndStartButton() {
         sound.playBackgroundMusic(true);
@@ -82,14 +86,14 @@ var LX_Final;
         rightMapBoarder = new LX_Final.MapBorder("rightBorder", rightBorderPosition, horizontalSize);
         topMapBoarder = new LX_Final.MapBorder("topBorder", topBorderPosition, verticalSize);
         downMapBoarder = new LX_Final.MapBorder("downBorder", downBorderPosition, verticalSize);
-        mapBorderNode.addChild(leftMapBoarder);
-        mapBorderNode.addChild(rightMapBoarder);
-        mapBorderNode.addChild(topMapBoarder);
-        mapBorderNode.addChild(downMapBoarder);
+        LX_Final.mapBorderNode.addChild(leftMapBoarder);
+        LX_Final.mapBorderNode.addChild(rightMapBoarder);
+        LX_Final.mapBorderNode.addChild(topMapBoarder);
+        LX_Final.mapBorderNode.addChild(downMapBoarder);
     }
     //checking collision
     function checkCollision() {
-        for (let border of mapBorderNode.getChildren()) {
+        for (let border of LX_Final.mapBorderNode.getChildren()) {
             /* collision character - border */
             if (border.checkCollision(characterNode)) {
                 //if collision
@@ -158,8 +162,8 @@ var LX_Final;
         rootNode.addChild(trapNode);
         //activate trap after 1 second and start timer for the next trap
         if (!LX_Final.gameState.includes("over")) {
-            f.Time.game.setTimer(1500, 1, trapNode.activateTrap);
-            f.Time.game.setTimer(5000, 1, startSettingTraps);
+            f.Time.game.setTimer(LX_Final.externalData.configureTraps.activationTime, 1, trapNode.activateTrap);
+            f.Time.game.setTimer(LX_Final.externalData.configureTraps.spawningRate, 1, startSettingTraps);
         }
     }
     //placing coins
@@ -173,7 +177,7 @@ var LX_Final;
         rootNode.addChild(coinNode);
         //repeat if not game over
         if (!LX_Final.gameState.includes("over")) {
-            f.Time.game.setTimer(4000, 1, startPlacingCoins);
+            f.Time.game.setTimer(LX_Final.externalData.configureCoins.spawningRate, 1, startPlacingCoins);
         }
         scoreIncrease = true;
     }
