@@ -70,7 +70,7 @@ var LX_Final;
         f.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, update);
         setGameState("running");
         timescore = new LX_Final.TimeScore();
-        startIncreasingSpeed();
+        enemieNode.startIncreasingSpeed();
         startSettingTraps();
         startPlacingCoins();
         timescore.updateScore();
@@ -154,39 +154,6 @@ var LX_Final;
             }
         }
     }
-    /*
-        //set time in html
-        function updateTime(): void {
-            let timeObject: HTMLParagraphElement = <HTMLParagraphElement>document.getElementById("time");
-            let timeInSeconds: number = Math.floor(timer.get() / 1000);
-            let seconds: number = timeInSeconds % 60;
-            let minuts: number = Math.floor(timeInSeconds / 60);
-            timeObject.innerHTML = "timer: " + minuts + ":" + seconds;
-        }
-    
-        //set score in html
-        function updateScore(): void {
-            if (!gameState.includes("over")) {
-                //cut off everything except bevor =
-                let scoreString: string = document.getElementById("score").innerHTML;
-                let stringParts: string[] = scoreString.split(":");
-                console.log(stringParts[1]);
-                //convert number to type number
-                let score: number = parseInt(stringParts[1]);
-                //set new score
-                score++;
-                document.getElementById("score").innerHTML = "score: " + score.toString();
-                f.Time.game.setTimer(3000, 1, updateScore);
-            }
-        }
-        */
-    //increase enemie speed after 10 sec
-    function startIncreasingSpeed() {
-        enemieNode.increaseSpeed();
-        if (!LX_Final.gameState.includes("over")) {
-            f.Time.game.setTimer(10000, 1, startIncreasingSpeed);
-        }
-    }
     //setting gameState
     function setGameState(state) {
         LX_Final.gameState = state;
@@ -211,9 +178,6 @@ var LX_Final;
         //remove coinNode if existing
         if (coinNode) {
             rootNode.removeChild(coinNode);
-        }
-        else {
-            console.log("no coinNode found");
         }
         //create new coin at random position
         coinNode = new LX_Final.Coins(getRandomPosition(), getRandomPosition());

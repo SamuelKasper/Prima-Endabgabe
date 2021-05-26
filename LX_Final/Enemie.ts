@@ -1,7 +1,7 @@
 namespace LX_Final {
     import f = FudgeCore;
     export class Enemie extends QuadNode {
-        private speedEnemie: number = 5; //5
+        private speedEnemie: number = 5;
         private toggleX: number = 1;
         private toggleY: number = 1;
 
@@ -36,11 +36,14 @@ namespace LX_Final {
             }
         }
 
-        //increase the speed the enemie is moving with. max = 50
-        public increaseSpeed = (): void => {
+        //increase enemie speed every 10 sec until max of speed 50
+        public startIncreasingSpeed = (): void => {
             console.log("Enemie speed: " + this.speedEnemie);
             if (this.speedEnemie <= 50) {
                 this.speedEnemie += 1.5;
+            }
+            if (!gameState.includes("over")) {
+                f.Time.game.setTimer(10000, 1, this.startIncreasingSpeed);
             }
         }
     }
