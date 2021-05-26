@@ -1,4 +1,4 @@
-namespace LX_Final {
+namespace Endabgabe {
     export interface ConfigureEnemie {
         maxSpeed: number;
     }

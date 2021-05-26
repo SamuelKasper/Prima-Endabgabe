@@ -1,13 +1,13 @@
 "use strict";
-var LX_Final;
-(function (LX_Final) {
+var Endabgabe;
+(function (Endabgabe) {
     var f = FudgeCore;
-    class Character extends LX_Final.QuadNode {
+    class Character extends Endabgabe.QuadNode {
         constructor() {
             super("character", new f.Vector2(0, 0), new f.Vector2(1, 1));
             //Variables
             this.jmpReady = true;
-            this.speedCharacter = LX_Final.externalData.configureAvatar.movementSpeed;
+            this.speedCharacter = Endabgabe.externalData.configureAvatar.movementSpeed;
             this.allowMoveLeft = true;
             this.allowMoveRight = true;
             this.allowMoveTop = true;
@@ -53,7 +53,7 @@ var LX_Final;
             };
             //reset movement speed after "jump"
             this.resetSpeed = () => {
-                this.speedCharacter = LX_Final.externalData.configureAvatar.movementSpeed;
+                this.speedCharacter = Endabgabe.externalData.configureAvatar.movementSpeed;
             };
             //waiting for permission to "jump" again
             this.waitForJmpReady = () => {
@@ -112,6 +112,6 @@ var LX_Final;
             }
         }
     }
-    LX_Final.Character = Character;
-})(LX_Final || (LX_Final = {}));
+    Endabgabe.Character = Character;
+})(Endabgabe || (Endabgabe = {}));
 //# sourceMappingURL=Character.js.map

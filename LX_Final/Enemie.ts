@@ -1,4 +1,4 @@
-namespace LX_Final {
+namespace Endabgabe {
     import f = FudgeCore;
     export class Enemie extends QuadNode {
         private speedEnemie: number = 5;

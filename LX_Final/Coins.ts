@@ -1,4 +1,4 @@
-namespace LX_Final {
+namespace Endabgabe {
     import f = FudgeCore;
     export class Coins extends QuadNode {
 

@@ -1,8 +1,8 @@
 "use strict";
-var LX_Final;
-(function (LX_Final) {
+var Endabgabe;
+(function (Endabgabe) {
     var f = FudgeCore;
-    class Enemie extends LX_Final.QuadNode {
+    class Enemie extends Endabgabe.QuadNode {
         constructor() {
             super("enemie", new f.Vector2(0, 4), new f.Vector2(3, 3));
             this.speedEnemie = 5;
@@ -18,10 +18,10 @@ var LX_Final;
             //increase enemie speed every 10 sec until max of speed 50
             this.startIncreasingSpeed = () => {
                 console.log("Enemie speed: " + this.speedEnemie);
-                if (this.speedEnemie <= LX_Final.externalData.configureEnemie.maxSpeed) {
+                if (this.speedEnemie <= Endabgabe.externalData.configureEnemie.maxSpeed) {
                     this.speedEnemie += 1.5;
                 }
-                if (!LX_Final.gameState.includes("over")) {
+                if (!Endabgabe.gameState.includes("over")) {
                     f.Time.game.setTimer(10000, 1, this.startIncreasingSpeed);
                 }
             };
@@ -45,6 +45,6 @@ var LX_Final;
             }
         }
     }
-    LX_Final.Enemie = Enemie;
-})(LX_Final || (LX_Final = {}));
+    Endabgabe.Enemie = Enemie;
+})(Endabgabe || (Endabgabe = {}));
 //# sourceMappingURL=Enemie.js.map

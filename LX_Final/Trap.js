@@ -1,17 +1,17 @@
 "use strict";
-var LX_Final;
-(function (LX_Final) {
+var Endabgabe;
+(function (Endabgabe) {
     var f = FudgeCore;
-    class Trap extends LX_Final.QuadNode {
+    class Trap extends Endabgabe.QuadNode {
         constructor(x, y) {
             super("enemie", new f.Vector2(x, y), new f.Vector2(2, 2));
             this.activateTrap = () => {
                 this.getComponent(f.ComponentMaterial).clrPrimary = new f.Color(1, 0, 0, 1);
-                LX_Final.trapActive = true;
+                Endabgabe.trapActive = true;
             };
             this.getComponent(f.ComponentMaterial).clrPrimary = new f.Color(1, 1, 0, 1);
         }
     }
-    LX_Final.Trap = Trap;
-})(LX_Final || (LX_Final = {}));
+    Endabgabe.Trap = Trap;
+})(Endabgabe || (Endabgabe = {}));
 //# sourceMappingURL=Trap.js.map

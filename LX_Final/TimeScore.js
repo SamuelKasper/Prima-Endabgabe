@@ -1,6 +1,6 @@
 "use strict";
-var LX_Final;
-(function (LX_Final) {
+var Endabgabe;
+(function (Endabgabe) {
     var f = FudgeCore;
     class TimeScore {
         constructor() {
@@ -17,7 +17,7 @@ var LX_Final;
         }
         // updateing score in html
         updateScore() {
-            if (!LX_Final.gameState.includes("over")) {
+            if (!Endabgabe.gameState.includes("over")) {
                 //cut off everything except bevor =
                 let scoreString = document.getElementById("score").innerHTML;
                 let stringParts = scoreString.split(":");
@@ -30,6 +30,6 @@ var LX_Final;
             }
         }
     }
-    LX_Final.TimeScore = TimeScore;
-})(LX_Final || (LX_Final = {}));
+    Endabgabe.TimeScore = TimeScore;
+})(Endabgabe || (Endabgabe = {}));
 //# sourceMappingURL=TimeScore.js.map

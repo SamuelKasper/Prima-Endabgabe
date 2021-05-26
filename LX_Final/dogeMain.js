@@ -1,6 +1,6 @@
 "use strict";
-var LX_Final;
-(function (LX_Final) {
+var Endabgabe;
+(function (Endabgabe) {
     var f = FudgeCore;
     window.addEventListener("load", init);
     let viewport = new f.Viewport();
@@ -24,7 +24,7 @@ var LX_Final;
     let startBtn;
     let resetBtn;
     let timescore;
-    LX_Final.trapActive = false;
+    Endabgabe.trapActive = false;
     async function init() {
         await loadExternalData("./ExternalData/externalData.json");
         const canvas = document.querySelector("canvas");
@@ -38,14 +38,14 @@ var LX_Final;
         comCamera.mtxPivot.translateY(0);
         comCamera.mtxPivot.rotateY(180);
         //creating children and adding them to rootNode
-        sound = new LX_Final.Sounds();
-        characterNode = new LX_Final.Character();
-        enemieNode = new LX_Final.Enemie();
-        LX_Final.mapBorderNode = new f.Node("borderNode");
+        sound = new Endabgabe.Sounds();
+        characterNode = new Endabgabe.Character();
+        enemieNode = new Endabgabe.Enemie();
+        Endabgabe.mapBorderNode = new f.Node("borderNode");
         addChildMapBorder();
         rootNode.addChild(enemieNode);
         rootNode.addChild(characterNode);
-        rootNode.addChild(LX_Final.mapBorderNode);
+        rootNode.addChild(Endabgabe.mapBorderNode);
         //initialize viewport
         viewport.initialize("Viewport", rootNode, comCamera, canvas);
         viewport.draw();
@@ -55,14 +55,14 @@ var LX_Final;
     }
     async function loadExternalData(_url) {
         let response = await fetch(_url);
-        LX_Final.externalData = await response.json();
+        Endabgabe.externalData = await response.json();
     }
     function hndStartButton() {
         sound.playBackgroundMusic(true);
         f.Loop.start(f.LOOP_MODE.TIME_REAL, 60);
         f.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, update);
         setGameState("running");
-        timescore = new LX_Final.TimeScore();
+        timescore = new Endabgabe.TimeScore();
         enemieNode.startIncreasingSpeed();
         startSettingTraps();
         startPlacingCoins();
@@ -82,18 +82,18 @@ var LX_Final;
     }
     //setting up map borders and adding them as child
     function addChildMapBorder() {
-        leftMapBoarder = new LX_Final.MapBorder("leftBorder", leftBorderPosition, horizontalSize);
-        rightMapBoarder = new LX_Final.MapBorder("rightBorder", rightBorderPosition, horizontalSize);
-        topMapBoarder = new LX_Final.MapBorder("topBorder", topBorderPosition, verticalSize);
-        downMapBoarder = new LX_Final.MapBorder("downBorder", downBorderPosition, verticalSize);
-        LX_Final.mapBorderNode.addChild(leftMapBoarder);
-        LX_Final.mapBorderNode.addChild(rightMapBoarder);
-        LX_Final.mapBorderNode.addChild(topMapBoarder);
-        LX_Final.mapBorderNode.addChild(downMapBoarder);
+        leftMapBoarder = new Endabgabe.MapBorder("leftBorder", leftBorderPosition, horizontalSize);
+        rightMapBoarder = new Endabgabe.MapBorder("rightBorder", rightBorderPosition, horizontalSize);
+        topMapBoarder = new Endabgabe.MapBorder("topBorder", topBorderPosition, verticalSize);
+        downMapBoarder = new Endabgabe.MapBorder("downBorder", downBorderPosition, verticalSize);
+        Endabgabe.mapBorderNode.addChild(leftMapBoarder);
+        Endabgabe.mapBorderNode.addChild(rightMapBoarder);
+        Endabgabe.mapBorderNode.addChild(topMapBoarder);
+        Endabgabe.mapBorderNode.addChild(downMapBoarder);
     }
     //checking collision
     function checkCollision() {
-        for (let border of LX_Final.mapBorderNode.getChildren()) {
+        for (let border of Endabgabe.mapBorderNode.getChildren()) {
             /* collision character - border */
             if (border.checkCollision(characterNode)) {
                 //if collision
@@ -119,7 +119,7 @@ var LX_Final;
         }
         /* collision character - trap */
         if (characterNode.checkCollision(trapNode)) {
-            if (LX_Final.trapActive) {
+            if (Endabgabe.trapActive) {
                 setGameState("over");
                 f.Loop.stop();
                 let gameoverText = document.createElement("p");
@@ -130,7 +130,7 @@ var LX_Final;
         }
         /* collision character - coin */
         if (characterNode.checkCollision(coinNode)) {
-            sound.playSound(LX_Final.SoundList.collectCoin);
+            sound.playSound(Endabgabe.SoundList.collectCoin);
             rootNode.removeChild(coinNode);
             //ScoreIncrease to prevent multiple increases of score at the same coin
             if (scoreIncrease) {
@@ -149,21 +149,21 @@ var LX_Final;
     }
     //setting gameState
     function setGameState(state) {
-        LX_Final.gameState = state;
-        document.getElementById("state").innerHTML = "Gamestate: " + LX_Final.gameState;
+        Endabgabe.gameState = state;
+        document.getElementById("state").innerHTML = "Gamestate: " + Endabgabe.gameState;
     }
     //setting Traps at the players position
     function startSettingTraps() {
         //remove recent trap and disable trapActive
         rootNode.removeChild(trapNode);
-        LX_Final.trapActive = false;
+        Endabgabe.trapActive = false;
         //create trapNode and add to root
-        trapNode = new LX_Final.Trap(characterNode.mtxLocal.translation.x, characterNode.mtxLocal.translation.y);
+        trapNode = new Endabgabe.Trap(characterNode.mtxLocal.translation.x, characterNode.mtxLocal.translation.y);
         rootNode.addChild(trapNode);
         //activate trap after 1 second and start timer for the next trap
-        if (!LX_Final.gameState.includes("over")) {
-            f.Time.game.setTimer(LX_Final.externalData.configureTraps.activationTime, 1, trapNode.activateTrap);
-            f.Time.game.setTimer(LX_Final.externalData.configureTraps.spawningRate, 1, startSettingTraps);
+        if (!Endabgabe.gameState.includes("over")) {
+            f.Time.game.setTimer(Endabgabe.externalData.configureTraps.activationTime, 1, trapNode.activateTrap);
+            f.Time.game.setTimer(Endabgabe.externalData.configureTraps.spawningRate, 1, startSettingTraps);
         }
     }
     //placing coins
@@ -173,11 +173,11 @@ var LX_Final;
             rootNode.removeChild(coinNode);
         }
         //create new coin at random position
-        coinNode = new LX_Final.Coins(getRandomPosition(), getRandomPosition());
+        coinNode = new Endabgabe.Coins(getRandomPosition(), getRandomPosition());
         rootNode.addChild(coinNode);
         //repeat if not game over
-        if (!LX_Final.gameState.includes("over")) {
-            f.Time.game.setTimer(LX_Final.externalData.configureCoins.spawningRate, 1, startPlacingCoins);
+        if (!Endabgabe.gameState.includes("over")) {
+            f.Time.game.setTimer(Endabgabe.externalData.configureCoins.spawningRate, 1, startPlacingCoins);
         }
         scoreIncrease = true;
     }
@@ -193,5 +193,5 @@ var LX_Final;
         }
         return rnd;
     }
-})(LX_Final || (LX_Final = {}));
+})(Endabgabe || (Endabgabe = {}));
 //# sourceMappingURL=DogeMain.js.map

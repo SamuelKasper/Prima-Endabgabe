@@ -1,4 +1,4 @@
-namespace LX_Final {
+namespace Endabgabe {
     import f = FudgeCore;
 
     window.addEventListener("load", init);

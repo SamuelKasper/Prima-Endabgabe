@@ -1,6 +1,6 @@
 "use strict";
-var LX_Final;
-(function (LX_Final) {
+var Endabgabe;
+(function (Endabgabe) {
     var fc = FudgeCore;
     class QuadNode extends fc.Node {
         constructor(_name, _pos, _scale) {
@@ -25,6 +25,6 @@ var LX_Final;
     }
     QuadNode.mesh = new fc.MeshQuad("Quad");
     QuadNode.material = new fc.Material("white", fc.ShaderUniColor, new fc.CoatColored(new fc.Color(1, 1, 1, 1)));
-    LX_Final.QuadNode = QuadNode;
-})(LX_Final || (LX_Final = {}));
+    Endabgabe.QuadNode = QuadNode;
+})(Endabgabe || (Endabgabe = {}));
 //# sourceMappingURL=QuadNode.js.map
