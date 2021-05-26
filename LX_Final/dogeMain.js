@@ -4,22 +4,14 @@ var LX_Final;
     var f = FudgeCore;
     window.addEventListener("load", init);
     let viewport = new f.Viewport();
-    //Root Node
     let rootNode = new f.Node("root");
-    //Character Node
     let characterNode;
-    //Enemie Node
     let enemieNode;
-    //Trap Node
     let trapNode;
-    LX_Final.trapActive = false;
-    //Coin Node
     let coinNode;
     let scoreIncrease = true;
-    //Sound Node
     let sound;
-    //mapBorder
-    let mapBorderNode = new f.Node("borderNode");
+    let mapBorderNode;
     let leftMapBoarder;
     let rightMapBoarder;
     let topMapBoarder;
@@ -30,21 +22,17 @@ var LX_Final;
     let downBorderPosition = new f.Vector2(0, -16);
     let horizontalSize = new f.Vector2(1, 33);
     let verticalSize = new f.Vector2(32, 1);
-    //buttons
     let startBtn;
     let resetBtn;
-    //TimeScore
     let timescore;
+    LX_Final.trapActive = false;
     function init() {
-        //Canvas holen und speichern
         const canvas = document.querySelector("canvas");
-        //start button init
         startBtn = document.getElementById("startBtn");
-        //reset button init
         resetBtn = document.getElementById("resetBtn");
         //set gamestate
         setGameState("waiting for start");
-        //create and move camera
+        //create and position camera
         let comCamera = new f.ComponentCamera();
         comCamera.mtxPivot.translateZ(40);
         comCamera.mtxPivot.translateY(0);
@@ -52,16 +40,17 @@ var LX_Final;
         //creating children and adding them to rootNode
         sound = new LX_Final.Sounds();
         characterNode = new LX_Final.Character();
-        rootNode.addChild(characterNode);
         enemieNode = new LX_Final.Enemie();
-        rootNode.addChild(enemieNode);
+        mapBorderNode = new f.Node("borderNode");
         addChildMapBorder();
+        rootNode.addChild(enemieNode);
+        rootNode.addChild(characterNode);
         rootNode.addChild(mapBorderNode);
+        //initialize viewport
         viewport.initialize("Viewport", rootNode, comCamera, canvas);
         viewport.draw();
-        //add actionlistener on start button 
+        //adding listener to buttons
         startBtn.addEventListener("click", hndStartButton);
-        //add actionlistener on reset button 
         resetBtn.addEventListener("click", hndResetButton);
     }
     function hndStartButton() {

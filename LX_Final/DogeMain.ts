@@ -3,23 +3,14 @@ namespace LX_Final {
 
     window.addEventListener("load", init);
     let viewport: f.Viewport = new f.Viewport();
-
-    //Root Node
     let rootNode: f.Node = new f.Node("root");
-    //Character Node
     let characterNode: Character;
-    //Enemie Node
     let enemieNode: Enemie;
-    //Trap Node
     let trapNode: Trap;
-    export let trapActive: boolean = false;
-    //Coin Node
     let coinNode: Coins;
     let scoreIncrease: boolean = true;
-    //Sound Node
     let sound: Sounds;
-    //mapBorder
-    let mapBorderNode: f.Node = new f.Node("borderNode");
+    let mapBorderNode: f.Node; 
     let leftMapBoarder: MapBorder;
     let rightMapBoarder: MapBorder;
     let topMapBoarder: MapBorder;
@@ -30,28 +21,21 @@ namespace LX_Final {
     let downBorderPosition: f.Vector2 = new f.Vector2(0, -16);
     let horizontalSize: f.Vector2 = new f.Vector2(1, 33);
     let verticalSize: f.Vector2 = new f.Vector2(32, 1);
-    //buttons
     let startBtn: HTMLButtonElement;
     let resetBtn: HTMLButtonElement;
-    //gamestate
-    export let gameState: string;
-    //TimeScore
     let timescore: TimeScore; 
+    export let trapActive: boolean = false;
+    export let gameState: string;
 
     function init(): void {
-        //Canvas holen und speichern
         const canvas: HTMLCanvasElement = document.querySelector("canvas");
-
-        //start button init
         startBtn = <HTMLButtonElement>document.getElementById("startBtn");
-
-        //reset button init
         resetBtn = <HTMLButtonElement>document.getElementById("resetBtn");
 
         //set gamestate
         setGameState("waiting for start");
 
-        //create and move camera
+        //create and position camera
         let comCamera: f.ComponentCamera = new f.ComponentCamera();
         comCamera.mtxPivot.translateZ(40);
         comCamera.mtxPivot.translateY(0);
@@ -60,19 +44,19 @@ namespace LX_Final {
         //creating children and adding them to rootNode
         sound = new Sounds();
         characterNode = new Character();
-        rootNode.addChild(characterNode);
         enemieNode = new Enemie();
-        rootNode.addChild(enemieNode);
+        mapBorderNode = new f.Node("borderNode");
         addChildMapBorder();
+        rootNode.addChild(enemieNode);
+        rootNode.addChild(characterNode);
         rootNode.addChild(mapBorderNode);
 
+        //initialize viewport
         viewport.initialize("Viewport", rootNode, comCamera, canvas);
         viewport.draw();
         
-        //add actionlistener on start button 
+        //adding listener to buttons
         startBtn.addEventListener("click", hndStartButton);
-
-        //add actionlistener on reset button 
         resetBtn.addEventListener("click", hndResetButton);
     }
 
@@ -174,8 +158,6 @@ namespace LX_Final {
             }
         }
     }
-
-
 
     //setting gameState
     function setGameState(state: string): void {
