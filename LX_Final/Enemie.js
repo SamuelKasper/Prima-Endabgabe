@@ -8,8 +8,14 @@ var Endabgabe;
             this.speedEnemie = 5;
             this.toggleX = 1;
             this.toggleY = 1;
+            this.texture = new f.TextureImage("./Images/Enemie.png");
+            this.material = new f.Material("enemieMat", f.ShaderTexture, new f.CoatTextured(null, this.texture));
+            this.textureNode = new Endabgabe.QuadNode("textureNode", new f.Vector2(0, 0), new f.Vector2(3, 3));
             //moves the enemie
             this.moveEnemie = () => {
+                //rotate texture
+                this.textureNode.mtxLocal.rotateZ(7);
+                //move
                 let offsetEnemie = this.speedEnemie * f.Loop.timeFrameReal / 1000;
                 this.mtxLocal.translateX(offsetEnemie * 1.3 * this.toggleX);
                 this.mtxLocal.translateY(offsetEnemie * 1.7 * this.toggleY);
@@ -25,7 +31,12 @@ var Endabgabe;
                     f.Time.game.setTimer(10000, 1, this.startIncreasingSpeed);
                 }
             };
-            this.getComponent(f.ComponentMaterial).clrPrimary = new f.Color(1, 0, 0, 1);
+            //remove material given from quadnote
+            this.removeComponent(this.getComponent(f.ComponentMaterial));
+            //add new image material
+            this.textureNode.getComponent(f.ComponentMaterial).material = this.material;
+            this.addChild(this.textureNode);
+            console.log(this);
         }
         //change direction
         toggleDirection(collisionAt) {

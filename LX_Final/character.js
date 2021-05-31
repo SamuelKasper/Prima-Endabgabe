@@ -12,6 +12,9 @@ var Endabgabe;
             this.allowMoveRight = true;
             this.allowMoveTop = true;
             this.allowMoveDown = true;
+            this.texture = new f.TextureImage("./Images/Avatar.png");
+            this.material = new f.Material("avatarMat", f.ShaderTexture, new f.CoatTextured(null, this.texture));
+            this.textureNode = new Endabgabe.QuadNode("textureNode", new f.Vector2(0, 0), new f.Vector2(1, 1));
             //moves the character
             this.moveCharacter = () => {
                 let offset = this.speedCharacter * f.Loop.timeFrameReal / 1000;
@@ -59,7 +62,11 @@ var Endabgabe;
             this.waitForJmpReady = () => {
                 this.jmpReady = true;
             };
-            this.getComponent(f.ComponentMaterial).clrPrimary = new f.Color(1, 1, 1, 1);
+            //remove material given from quadnote
+            this.removeComponent(this.getComponent(f.ComponentMaterial));
+            //add new image material
+            this.textureNode.getComponent(f.ComponentMaterial).material = this.material;
+            this.addChild(this.textureNode);
         }
         //setting permission to move (allowMove...) to false
         disableMove(direction) {

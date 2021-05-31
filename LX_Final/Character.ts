@@ -10,9 +10,17 @@ namespace Endabgabe {
         private allowMoveTop: boolean = true;
         private allowMoveDown: boolean = true;
 
+        private texture: f.TextureImage = new f.TextureImage("./Images/Avatar.png");
+        private material: f.Material = new f.Material("avatarMat", f.ShaderTexture, new f.CoatTextured(null, this.texture));
+        private textureNode: QuadNode = new QuadNode("textureNode", new f.Vector2(0, 0), new f.Vector2(1, 1));
+
         public constructor() {
             super("character", new f.Vector2(0, 0), new f.Vector2(1, 1));
-            this.getComponent(f.ComponentMaterial).clrPrimary = new f.Color(1, 1, 1, 1);
+            //remove material given from quadnote
+            this.removeComponent(this.getComponent(f.ComponentMaterial));
+            //add new image material
+            this.textureNode.getComponent(f.ComponentMaterial).material = this.material;
+            this.addChild(this.textureNode);
         }
 
         //setting permission to move (allowMove...) to false

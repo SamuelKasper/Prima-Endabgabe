@@ -43,6 +43,7 @@ namespace Endabgabe {
         comCamera.mtxPivot.translateZ(40);
         comCamera.mtxPivot.translateY(0);
         comCamera.mtxPivot.rotateY(180);
+        comCamera.clrBackground = f.Color.CSS("white");
 
         //creating children and adding them to rootNode
         sound = new Sounds();

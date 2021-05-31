@@ -5,13 +5,27 @@ namespace Endabgabe {
         private toggleX: number = 1;
         private toggleY: number = 1;
 
+        private texture: f.TextureImage = new f.TextureImage("./Images/Enemie.png");
+        private material: f.Material = new f.Material("enemieMat", f.ShaderTexture, new f.CoatTextured(null, this.texture));
+        private textureNode: QuadNode = new QuadNode("textureNode", new f.Vector2(0, 0), new f.Vector2(3, 3));
+
         constructor() {
             super("enemie", new f.Vector2(0, 4), new f.Vector2(3, 3));
-            this.getComponent(f.ComponentMaterial).clrPrimary = new f.Color(1, 0, 0, 1);
+            //remove material given from quadnote
+            this.removeComponent(this.getComponent(f.ComponentMaterial));
+            //add new image material
+            this.textureNode.getComponent(f.ComponentMaterial).material = this.material;
+            this.addChild(this.textureNode);
+            console.log(this);
+
         }
 
         //moves the enemie
         public moveEnemie = (): void => {
+            //rotate texture
+            this.textureNode.mtxLocal.rotateZ(7);
+
+            //move
             let offsetEnemie: number = this.speedEnemie * f.Loop.timeFrameReal / 1000;
             this.mtxLocal.translateX(offsetEnemie * 1.3 * this.toggleX);
             this.mtxLocal.translateY(offsetEnemie * 1.7 * this.toggleY);
