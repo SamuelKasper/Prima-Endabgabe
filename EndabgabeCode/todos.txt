@@ -1,0 +1,17 @@
+Standardeinstellungen:
+
+{
+    "configureEnemie": {
+        "maxSpeed": 50 
+    },
+    "configureAvatar": {
+        "movementSpeed": 7
+    },
+    "configureCoins": {
+        "spawningRate": 4000
+    },
+    "configureTraps": {
+        "spawningRate": 5000,
+        "activationTime": 1500
+    }
+}
