@@ -6,7 +6,9 @@ var Endabgabe;
     let viewport = new f.Viewport();
     let rootNode = new f.Node("root");
     let characterNode;
-    let enemieNode;
+    let enemieNode = new f.Node("enemieMainNode");
+    let enemieOne;
+    let enemieTwo;
     let trapNode;
     let coinNode;
     let scoreIncrease = true;
@@ -41,9 +43,10 @@ var Endabgabe;
         //creating children and adding them to rootNode
         sound = new Endabgabe.Sounds();
         characterNode = new Endabgabe.Character();
-        enemieNode = new Endabgabe.Enemie();
+        enemieOne = new Endabgabe.Enemie();
         Endabgabe.mapBorderNode = new f.Node("borderNode");
         addChildMapBorder();
+        enemieNode.addChild(enemieOne);
         rootNode.addChild(enemieNode);
         rootNode.addChild(characterNode);
         rootNode.addChild(Endabgabe.mapBorderNode);
@@ -64,7 +67,7 @@ var Endabgabe;
         f.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, update);
         setGameState("running");
         timescore = new Endabgabe.TimeScore();
-        enemieNode.startIncreasingSpeed();
+        enemieOne.startIncreasingSpeed();
         startSettingTraps();
         startPlacingCoins();
         timescore.updateScore();
@@ -77,8 +80,11 @@ var Endabgabe;
     function update(_event) {
         characterNode.moveCharacter();
         checkCollision();
-        enemieNode.moveEnemie();
+        for (let enemies of enemieNode.getChildren()) {
+            enemies.moveEnemie();
+        }
         timescore.updateTime();
+        createSecondEnemie();
         viewport.draw();
     }
     //setting up map borders and adding them as child
@@ -105,34 +111,42 @@ var Endabgabe;
                 characterNode.enableMove(border.name);
             }
             /* collision enemie - border */
-            if (border.checkCollision(enemieNode)) {
-                enemieNode.toggleDirection(border.name);
+            for (let enemies of enemieNode.getChildren()) {
+                if (border.checkCollision(enemies)) {
+                    enemies.toggleDirection(border.name);
+                }
             }
         }
         /* collision character - enemie */
-        if (characterNode.checkCollision(enemieNode)) {
-            setGameState("over");
-            f.Loop.stop();
-            let gameoverText = document.createElement("p");
-            gameoverText.innerHTML = "Game Over";
-            document.getElementById("gameover").appendChild(gameoverText);
-            sound.playBackgroundMusic(false);
+        for (let enemies of enemieNode.getChildren()) {
+            if (characterNode.checkCollision(enemies)) {
+                /*
+                setGameState("over");
+                f.Loop.stop();
+                let gameoverText: HTMLParagraphElement = document.createElement("p");
+                gameoverText.innerHTML = "Game Over";
+                document.getElementById("gameover").appendChild(gameoverText);
+                sound.playBackgroundMusic(false);*/
+            }
         }
         /* collision character - trap */
         if (characterNode.checkCollision(trapNode)) {
-            if (Endabgabe.trapActive) {
+            /*
+            if (trapActive) {
                 setGameState("over");
                 f.Loop.stop();
-                let gameoverText = document.createElement("p");
+                let gameoverText: HTMLParagraphElement = document.createElement("p");
                 gameoverText.innerHTML = "Game Over";
                 document.getElementById("gameover").appendChild(gameoverText);
                 sound.playBackgroundMusic(false);
-            }
+            }*/
         }
         /* collision enemie - trap */
-        if (enemieNode.checkCollision(trapNode)) {
-            if (Endabgabe.trapActive) {
-                enemieNode.hitsTrap(enemieNode.mtxLocal.translation.x, enemieNode.mtxLocal.translation.y, trapNode.mtxLocal.translation.x, trapNode.mtxLocal.translation.y);
+        for (let enemies of enemieNode.getChildren()) {
+            if (enemies.checkCollision(trapNode)) {
+                if (Endabgabe.trapActive) {
+                    enemies.hitsTrap(enemies.mtxLocal.translation.x, enemies.mtxLocal.translation.y, trapNode.mtxLocal.translation.x, trapNode.mtxLocal.translation.y);
+                }
             }
         }
         /* collision character - coin */
@@ -186,6 +200,16 @@ var Endabgabe;
             f.Time.game.setTimer(Endabgabe.externalData.configureCoins.spawningRate, 1, startPlacingCoins);
         }
         scoreIncrease = true;
+    }
+    function createSecondEnemie() {
+        if (Endabgabe.oneMinutePassed == true) {
+            if (!enemieTwo) {
+                enemieTwo = new Endabgabe.Enemie();
+                enemieNode.addChild(enemieTwo);
+                rootNode.addChild(enemieNode);
+                enemieTwo.startIncreasingSpeed();
+            }
+        }
     }
     //generate random number between -15.5 and 15.5
     function getRandomPosition() {

@@ -1,8 +1,8 @@
 namespace Endabgabe {
     import f = FudgeCore;
+    export let oneMinutePassed: boolean;
     export class TimeScore {
         private timer: f.Time;
-
         constructor() {
             this.timer = new f.Time();
             f.Time.game.setTimer(3000, 1, this.updateScore);
@@ -13,8 +13,11 @@ namespace Endabgabe {
             let timeObject: HTMLParagraphElement = <HTMLParagraphElement>document.getElementById("time");
             let timeInSeconds: number = Math.floor(this.timer.get() / 1000);
             let seconds: number = timeInSeconds % 60;
-            let minuts: number = Math.floor(timeInSeconds / 60);
-            timeObject.innerHTML = "timer: " + minuts + ":" + seconds;
+            let minutes: number = Math.floor(timeInSeconds / 60);
+            timeObject.innerHTML = "timer: " + minutes + ":" + seconds;
+            if (minutes >= 1) {
+                oneMinutePassed = true;
+            }
         }
 
         // updateing score in html

@@ -12,8 +12,11 @@ var Endabgabe;
             let timeObject = document.getElementById("time");
             let timeInSeconds = Math.floor(this.timer.get() / 1000);
             let seconds = timeInSeconds % 60;
-            let minuts = Math.floor(timeInSeconds / 60);
-            timeObject.innerHTML = "timer: " + minuts + ":" + seconds;
+            let minutes = Math.floor(timeInSeconds / 60);
+            timeObject.innerHTML = "timer: " + minutes + ":" + seconds;
+            if (minutes >= 1) {
+                Endabgabe.oneMinutePassed = true;
+            }
         }
         // updateing score in html
         updateScore() {

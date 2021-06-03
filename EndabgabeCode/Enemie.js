@@ -2,12 +2,12 @@
 var Endabgabe;
 (function (Endabgabe) {
     var f = FudgeCore;
-    Endabgabe.toggleX = 1;
-    Endabgabe.toggleY = 1;
     class Enemie extends Endabgabe.QuadNode {
         constructor() {
             super("enemie", new f.Vector2(0, 4), new f.Vector2(3, 3));
             this.speedEnemie = 5;
+            this.toggleX = 1;
+            this.toggleY = 1;
             this.texture = new f.TextureImage("./Images/Enemie.png");
             this.material = new f.Material("enemieMat", f.ShaderTexture, new f.CoatTextured(null, this.texture));
             this.textureNode = new Endabgabe.QuadNode("textureNode", new f.Vector2(0, 0), new f.Vector2(3, 3));
@@ -16,15 +16,15 @@ var Endabgabe;
                 //rotate texture
                 this.textureNode.mtxLocal.rotateZ(7 + 0.25 * this.speedEnemie);
                 let offsetEnemie = this.speedEnemie * f.Loop.timeFrameReal / 1000;
-                this.mtxLocal.translateX(offsetEnemie * 1.3 * Endabgabe.toggleX);
-                this.mtxLocal.translateY(offsetEnemie * 1.7 * Endabgabe.toggleY);
+                this.mtxLocal.translateX(offsetEnemie * 1.3 * this.toggleX);
+                this.mtxLocal.translateY(offsetEnemie * 1.7 * this.toggleY);
                 this.setRectPosition();
             };
             //increase enemie speed every 10 sec until max of speed 50
             this.startIncreasingSpeed = () => {
                 console.log("Enemie speed: " + this.speedEnemie);
                 console.log("Enemie rotation: " + (7 + 0.25 * this.speedEnemie));
-                if (this.speedEnemie <= Endabgabe.externalData.configureEnemie.maxSpeed) {
+                if (this.speedEnemie < Endabgabe.externalData.configureEnemie.maxSpeed) {
                     this.speedEnemie += 1.5;
                 }
                 if (!Endabgabe.gameState.includes("over")) {
@@ -41,16 +41,16 @@ var Endabgabe;
         toggleDirection(collisionAt) {
             switch (collisionAt) {
                 case "leftBorder":
-                    Endabgabe.toggleX = 1;
+                    this.toggleX = 1;
                     break;
                 case "rightBorder":
-                    Endabgabe.toggleX = -1;
+                    this.toggleX = -1;
                     break;
                 case "topBorder":
-                    Endabgabe.toggleY = -1;
+                    this.toggleY = -1;
                     break;
                 case "downBorder":
-                    Endabgabe.toggleY = 1;
+                    this.toggleY = 1;
                     break;
             }
         }

@@ -5,7 +5,9 @@ namespace Endabgabe {
     let viewport: f.Viewport = new f.Viewport();
     let rootNode: f.Node = new f.Node("root");
     let characterNode: Character;
-    let enemieNode: Enemie;
+    let enemieNode: f.Node = new f.Node("enemieMainNode");
+    let enemieOne: Enemie;
+    let enemieTwo: Enemie;
     let trapNode: Trap;
     let coinNode: Coins;
     let scoreIncrease: boolean = true;
@@ -48,9 +50,10 @@ namespace Endabgabe {
         //creating children and adding them to rootNode
         sound = new Sounds();
         characterNode = new Character();
-        enemieNode = new Enemie();
+        enemieOne = new Enemie();
         mapBorderNode = new f.Node("borderNode");
         addChildMapBorder();
+        enemieNode.addChild(enemieOne);
         rootNode.addChild(enemieNode);
         rootNode.addChild(characterNode);
         rootNode.addChild(mapBorderNode);
@@ -75,7 +78,7 @@ namespace Endabgabe {
         f.Loop.addEventListener(f.EVENT.LOOP_FRAME, update);
         setGameState("running");
         timescore = new TimeScore();
-        enemieNode.startIncreasingSpeed();
+        enemieOne.startIncreasingSpeed();
         startSettingTraps();
         startPlacingCoins();
         timescore.updateScore();
@@ -90,8 +93,11 @@ namespace Endabgabe {
     function update(_event: Event): void {
         characterNode.moveCharacter();
         checkCollision();
-        enemieNode.moveEnemie();
+        for (let enemies of enemieNode.getChildren() as Enemie[]) {
+            enemies.moveEnemie();
+        }
         timescore.updateTime();
+        createSecondEnemie();
         viewport.draw();
     }
 
@@ -121,23 +127,29 @@ namespace Endabgabe {
             }
 
             /* collision enemie - border */
-            if (border.checkCollision(enemieNode)) {
-                enemieNode.toggleDirection(border.name);
+            for (let enemies of enemieNode.getChildren() as Enemie[]) {
+                if (border.checkCollision(enemies)) {
+                    enemies.toggleDirection(border.name);
+                }
             }
         }
 
         /* collision character - enemie */
-        if (characterNode.checkCollision(enemieNode)) {
-            setGameState("over");
-            f.Loop.stop();
-            let gameoverText: HTMLParagraphElement = document.createElement("p");
-            gameoverText.innerHTML = "Game Over";
-            document.getElementById("gameover").appendChild(gameoverText);
-            sound.playBackgroundMusic(false);
+        for (let enemies of enemieNode.getChildren() as Enemie[]) {
+            if (characterNode.checkCollision(enemies)) {
+                /*
+                setGameState("over");
+                f.Loop.stop();
+                let gameoverText: HTMLParagraphElement = document.createElement("p");
+                gameoverText.innerHTML = "Game Over";
+                document.getElementById("gameover").appendChild(gameoverText);
+                sound.playBackgroundMusic(false);*/
+            }
         }
 
         /* collision character - trap */
         if (characterNode.checkCollision(trapNode)) {
+            /*
             if (trapActive) {
                 setGameState("over");
                 f.Loop.stop();
@@ -145,13 +157,15 @@ namespace Endabgabe {
                 gameoverText.innerHTML = "Game Over";
                 document.getElementById("gameover").appendChild(gameoverText);
                 sound.playBackgroundMusic(false);
-            }
+            }*/
         }
 
         /* collision enemie - trap */
-        if (enemieNode.checkCollision(trapNode)) {
-            if (trapActive) {
-                enemieNode.hitsTrap(enemieNode.mtxLocal.translation.x, enemieNode.mtxLocal.translation.y, trapNode.mtxLocal.translation.x, trapNode.mtxLocal.translation.y);
+        for (let enemies of enemieNode.getChildren() as Enemie[]) {
+            if (enemies.checkCollision(trapNode)) {
+                if (trapActive) {
+                    enemies.hitsTrap(enemies.mtxLocal.translation.x, enemies.mtxLocal.translation.y, trapNode.mtxLocal.translation.x, trapNode.mtxLocal.translation.y);
+                }
             }
         }
 
@@ -164,7 +178,7 @@ namespace Endabgabe {
                 //cut off everything except bevor =
                 let scoreString: string = document.getElementById("score").innerHTML;
                 let stringParts: string[] = scoreString.split(":");
-              
+
                 //convert number to type number
                 let score: number = parseInt(stringParts[1]);
                 //set new score
@@ -211,6 +225,17 @@ namespace Endabgabe {
             f.Time.game.setTimer(externalData.configureCoins.spawningRate, 1, startPlacingCoins);
         }
         scoreIncrease = true;
+    }
+
+    function createSecondEnemie(): void {
+        if (oneMinutePassed == true) {
+            if (!enemieTwo) {
+                enemieTwo = new Enemie();
+                enemieNode.addChild(enemieTwo);
+                rootNode.addChild(enemieNode);
+                enemieTwo.startIncreasingSpeed();
+            }
+        }
     }
 
     //generate random number between -15.5 and 15.5

@@ -21,4 +21,3 @@ Anderes:
 (der eine geht aus dem anderen heraus mit einer Achse invertiert)
 - Bilder zu spielbeginn laden
 - playerSpeed Up item (erhöht die geschwindigkeit des spielers um 25% ab einer Minute)
-- rotation bei höherer geschwindigkeit erhöhen
