@@ -22,11 +22,11 @@ namespace Endabgabe {
     let verticalSize: f.Vector2 = new f.Vector2(32, 1);
     let startBtn: HTMLButtonElement;
     let resetBtn: HTMLButtonElement;
-    let timescore: TimeScore; 
-    export let mapBorderNode: f.Node; 
+    let timescore: TimeScore;
+    export let mapBorderNode: f.Node;
     export let trapActive: boolean = false;
     export let gameState: string;
-    export let externalData: ExternalData; 
+    export let externalData: ExternalData;
 
     async function init(): Promise<void> {
         await loadExternalData("./ExternalData/externalData.json");
@@ -58,7 +58,7 @@ namespace Endabgabe {
         //initialize viewport
         viewport.initialize("Viewport", rootNode, comCamera, canvas);
         viewport.draw();
-        
+
         //adding listener to buttons
         startBtn.addEventListener("click", hndStartButton);
         resetBtn.addEventListener("click", hndResetButton);
@@ -128,16 +128,19 @@ namespace Endabgabe {
 
         /* collision character - enemie */
         if (characterNode.checkCollision(enemieNode)) {
+            /*
             setGameState("over");
             f.Loop.stop();
             let gameoverText: HTMLParagraphElement = document.createElement("p");
             gameoverText.innerHTML = "Game Over";
             document.getElementById("gameover").appendChild(gameoverText);
             sound.playBackgroundMusic(false);
+            */
         }
 
         /* collision character - trap */
         if (characterNode.checkCollision(trapNode)) {
+            /*
             if (trapActive) {
                 setGameState("over");
                 f.Loop.stop();
@@ -145,6 +148,13 @@ namespace Endabgabe {
                 gameoverText.innerHTML = "Game Over";
                 document.getElementById("gameover").appendChild(gameoverText);
                 sound.playBackgroundMusic(false);
+            }*/
+        }
+
+        /* collision enemie - trap */
+        if (enemieNode.checkCollision(trapNode)) {
+            if (trapActive) {
+                enemieNode.hitsTrap(enemieNode.mtxLocal.translation.x, enemieNode.mtxLocal.translation.y, trapNode.mtxLocal.translation.x, trapNode.mtxLocal.translation.y);
             }
         }
 

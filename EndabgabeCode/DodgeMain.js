@@ -111,22 +111,31 @@ var Endabgabe;
         }
         /* collision character - enemie */
         if (characterNode.checkCollision(enemieNode)) {
+            /*
             setGameState("over");
             f.Loop.stop();
-            let gameoverText = document.createElement("p");
+            let gameoverText: HTMLParagraphElement = document.createElement("p");
             gameoverText.innerHTML = "Game Over";
             document.getElementById("gameover").appendChild(gameoverText);
             sound.playBackgroundMusic(false);
+            */
         }
         /* collision character - trap */
         if (characterNode.checkCollision(trapNode)) {
-            if (Endabgabe.trapActive) {
+            /*
+            if (trapActive) {
                 setGameState("over");
                 f.Loop.stop();
-                let gameoverText = document.createElement("p");
+                let gameoverText: HTMLParagraphElement = document.createElement("p");
                 gameoverText.innerHTML = "Game Over";
                 document.getElementById("gameover").appendChild(gameoverText);
                 sound.playBackgroundMusic(false);
+            }*/
+        }
+        /* collision enemie - trap */
+        if (enemieNode.checkCollision(trapNode)) {
+            if (Endabgabe.trapActive) {
+                enemieNode.hitsTrap(enemieNode.mtxLocal.translation.x, enemieNode.mtxLocal.translation.y, trapNode.mtxLocal.translation.x, trapNode.mtxLocal.translation.y);
             }
         }
         /* collision character - coin */
