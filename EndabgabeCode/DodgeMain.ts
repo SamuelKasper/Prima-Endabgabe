@@ -128,19 +128,16 @@ namespace Endabgabe {
 
         /* collision character - enemie */
         if (characterNode.checkCollision(enemieNode)) {
-            /*
             setGameState("over");
             f.Loop.stop();
             let gameoverText: HTMLParagraphElement = document.createElement("p");
             gameoverText.innerHTML = "Game Over";
             document.getElementById("gameover").appendChild(gameoverText);
             sound.playBackgroundMusic(false);
-            */
         }
 
         /* collision character - trap */
         if (characterNode.checkCollision(trapNode)) {
-            /*
             if (trapActive) {
                 setGameState("over");
                 f.Loop.stop();
@@ -148,7 +145,7 @@ namespace Endabgabe {
                 gameoverText.innerHTML = "Game Over";
                 document.getElementById("gameover").appendChild(gameoverText);
                 sound.playBackgroundMusic(false);
-            }*/
+            }
         }
 
         /* collision enemie - trap */
@@ -167,7 +164,7 @@ namespace Endabgabe {
                 //cut off everything except bevor =
                 let scoreString: string = document.getElementById("score").innerHTML;
                 let stringParts: string[] = scoreString.split(":");
-                console.log(stringParts[1]);
+              
                 //convert number to type number
                 let score: number = parseInt(stringParts[1]);
                 //set new score

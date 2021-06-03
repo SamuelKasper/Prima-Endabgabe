@@ -21,7 +21,6 @@ var Endabgabe;
                 //cut off everything except bevor =
                 let scoreString = document.getElementById("score").innerHTML;
                 let stringParts = scoreString.split(":");
-                console.log(stringParts[1]);
                 //convert number to type number
                 let score = parseInt(stringParts[1]);
                 //set new score

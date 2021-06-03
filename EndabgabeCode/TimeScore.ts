@@ -23,7 +23,6 @@ namespace Endabgabe {
                 //cut off everything except bevor =
                 let scoreString: string = document.getElementById("score").innerHTML;
                 let stringParts: string[] = scoreString.split(":");
-                console.log(stringParts[1]);
                 //convert number to type number
                 let score: number = parseInt(stringParts[1]);
                 //set new score
