@@ -122,10 +122,12 @@ var Endabgabe;
         }
         addBonusSpeed() {
             if (Endabgabe.speedIncrease) {
-                this.speedCharacter = this.speedCharacter + Endabgabe.bonusSpeedFromCoins;
-                console.log("bonus speed: " + Endabgabe.bonusSpeedFromCoins);
-                console.log("speed character: " + this.speedCharacter);
-                Endabgabe.speedIncrease = false;
+                if (this.speedCharacter < 30) {
+                    this.speedCharacter = this.speedCharacter + Endabgabe.bonusSpeedFromCoins;
+                    console.log("bonus speed: " + Endabgabe.bonusSpeedFromCoins);
+                    console.log("speed character: " + this.speedCharacter);
+                    Endabgabe.speedIncrease = false;
+                }
             }
         }
     }
