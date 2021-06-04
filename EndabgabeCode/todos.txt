@@ -18,4 +18,3 @@ Standardeinstellungen:
 
 Anderes:
 - Bilder zu spielbeginn laden
-- playerSpeed Up item (erhöht die geschwindigkeit des spielers um 25% ab einer Minute)
