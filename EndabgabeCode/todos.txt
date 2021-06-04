@@ -2,7 +2,7 @@ Standardeinstellungen:
 
 {
     "configureEnemie": {
-        "maxSpeed": 50 
+        "maxSpeed": 30
     },
     "configureAvatar": {
         "movementSpeed": 7
@@ -17,7 +17,5 @@ Standardeinstellungen:
 }
 
 Anderes:
-- Ab einer Minute 2 Enemies die auch aneinander abprallen
-(der eine geht aus dem anderen heraus mit einer Achse invertiert)
 - Bilder zu spielbeginn laden
 - playerSpeed Up item (erhöht die geschwindigkeit des spielers um 25% ab einer Minute)

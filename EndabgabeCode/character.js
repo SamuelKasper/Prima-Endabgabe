@@ -2,6 +2,8 @@
 var Endabgabe;
 (function (Endabgabe) {
     var f = FudgeCore;
+    Endabgabe.speedIncrease = true;
+    Endabgabe.bonusSpeedFromCoins = 0;
     class Character extends Endabgabe.QuadNode {
         constructor() {
             super("character", new f.Vector2(0, 0), new f.Vector2(1, 1));
@@ -56,7 +58,7 @@ var Endabgabe;
             };
             //reset movement speed after "jump"
             this.resetSpeed = () => {
-                this.speedCharacter = Endabgabe.externalData.configureAvatar.movementSpeed;
+                this.speedCharacter = Endabgabe.externalData.configureAvatar.movementSpeed + Endabgabe.bonusSpeedFromCoins;
             };
             //waiting for permission to "jump" again
             this.waitForJmpReady = () => {
@@ -116,6 +118,14 @@ var Endabgabe;
                 case "downBorder":
                     this.allowMoveDown = true;
                     break;
+            }
+        }
+        addBonusSpeed() {
+            if (Endabgabe.speedIncrease) {
+                this.speedCharacter = this.speedCharacter + Endabgabe.bonusSpeedFromCoins;
+                console.log("bonus speed: " + Endabgabe.bonusSpeedFromCoins);
+                console.log("speed character: " + this.speedCharacter);
+                Endabgabe.speedIncrease = false;
             }
         }
     }

@@ -70,7 +70,6 @@ var Endabgabe;
         enemieOne.startIncreasingSpeed();
         startSettingTraps();
         startPlacingCoins();
-        timescore.updateScore();
         startBtn.blur(); //remove focus on button
         startBtn.disabled = true;
     }
@@ -120,26 +119,24 @@ var Endabgabe;
         /* collision character - enemie */
         for (let enemies of enemieNode.getChildren()) {
             if (characterNode.checkCollision(enemies)) {
-                /*
                 setGameState("over");
                 f.Loop.stop();
-                let gameoverText: HTMLParagraphElement = document.createElement("p");
+                let gameoverText = document.createElement("p");
                 gameoverText.innerHTML = "Game Over";
                 document.getElementById("gameover").appendChild(gameoverText);
-                sound.playBackgroundMusic(false);*/
+                sound.playBackgroundMusic(false);
             }
         }
         /* collision character - trap */
         if (characterNode.checkCollision(trapNode)) {
-            /*
-            if (trapActive) {
+            if (Endabgabe.trapActive) {
                 setGameState("over");
                 f.Loop.stop();
-                let gameoverText: HTMLParagraphElement = document.createElement("p");
+                let gameoverText = document.createElement("p");
                 gameoverText.innerHTML = "Game Over";
                 document.getElementById("gameover").appendChild(gameoverText);
                 sound.playBackgroundMusic(false);
-            }*/
+            }
         }
         /* collision enemie - trap */
         for (let enemies of enemieNode.getChildren()) {
@@ -149,12 +146,22 @@ var Endabgabe;
                 }
             }
         }
+        /* collision enemieOne - enemieTwo */
+        if (enemieTwo) {
+            if (enemieTwo.checkCollision(enemieOne)) {
+                enemieTwo.hitsTrap(enemieTwo.mtxLocal.translation.x, enemieTwo.mtxLocal.translation.y, enemieOne.mtxLocal.translation.x, enemieOne.mtxLocal.translation.y);
+                enemieOne.hitsTrap(enemieOne.mtxLocal.translation.x, enemieOne.mtxLocal.translation.y, enemieTwo.mtxLocal.translation.x, enemieTwo.mtxLocal.translation.y);
+            }
+        }
         /* collision character - coin */
         if (characterNode.checkCollision(coinNode)) {
             sound.playSound(Endabgabe.SoundList.collectCoin);
             rootNode.removeChild(coinNode);
             //ScoreIncrease to prevent multiple increases of score at the same coin
             if (scoreIncrease) {
+                //increase Bonus speed
+                Endabgabe.bonusSpeedFromCoins = Endabgabe.bonusSpeedFromCoins + 0.15;
+                characterNode.addBonusSpeed();
                 //cut off everything except bevor =
                 let scoreString = document.getElementById("score").innerHTML;
                 let stringParts = scoreString.split(":");
@@ -200,6 +207,7 @@ var Endabgabe;
             f.Time.game.setTimer(Endabgabe.externalData.configureCoins.spawningRate, 1, startPlacingCoins);
         }
         scoreIncrease = true;
+        Endabgabe.speedIncrease = true;
     }
     function createSecondEnemie() {
         if (Endabgabe.oneMinutePassed == true) {

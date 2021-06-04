@@ -72,7 +72,7 @@ namespace Endabgabe {
             console.log("Enemie speed: " + this.speedEnemie);
             console.log("Enemie rotation: " + (7 + 0.25 * this.speedEnemie));
             if (this.speedEnemie < externalData.configureEnemie.maxSpeed) {
-                this.speedEnemie += 1.5;
+                this.speedEnemie += 1;
             }
             if (!gameState.includes("over")) {
                 f.Time.game.setTimer(10000, 1, this.startIncreasingSpeed);

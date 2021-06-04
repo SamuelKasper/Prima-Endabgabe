@@ -1,5 +1,7 @@
 namespace Endabgabe {
     import f = FudgeCore;
+    export let speedIncrease: boolean = true;
+    export let bonusSpeedFromCoins: number = 0;
 
     export class Character extends QuadNode {
         //Variables
@@ -119,9 +121,18 @@ namespace Endabgabe {
             }
         }
 
+        public addBonusSpeed(): void {
+            if (speedIncrease) {
+                this.speedCharacter = this.speedCharacter + bonusSpeedFromCoins;
+                console.log("bonus speed: " + bonusSpeedFromCoins);
+                console.log("speed character: " + this.speedCharacter);
+                speedIncrease = false;
+            }
+        }
+
         //reset movement speed after "jump"
         public resetSpeed = (): void => {
-            this.speedCharacter = externalData.configureAvatar.movementSpeed;
+            this.speedCharacter = externalData.configureAvatar.movementSpeed + bonusSpeedFromCoins;
         }
 
         //waiting for permission to "jump" again

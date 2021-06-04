@@ -5,7 +5,7 @@ namespace Endabgabe {
         private timer: f.Time;
         constructor() {
             this.timer = new f.Time();
-            f.Time.game.setTimer(3000, 1, this.updateScore);
+            this.updateScore();
         }
 
         //updating timer in html
@@ -21,16 +21,18 @@ namespace Endabgabe {
         }
 
         // updateing score in html
-        public updateScore(): void {
+        public updateScore = (): void => {
             if (!gameState.includes("over")) {
                 //cut off everything except bevor =
                 let scoreString: string = document.getElementById("score").innerHTML;
                 let stringParts: string[] = scoreString.split(":");
                 //convert number to type number
                 let score: number = parseInt(stringParts[1]);
+                console.log(score);
                 //set new score
                 score++;
                 document.getElementById("score").innerHTML = "score: " + score.toString();
+                f.Time.game.setTimer(3000, 1, this.updateScore);
             }
         }
     }

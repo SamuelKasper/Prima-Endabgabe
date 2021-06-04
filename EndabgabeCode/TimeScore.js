@@ -4,8 +4,23 @@ var Endabgabe;
     var f = FudgeCore;
     class TimeScore {
         constructor() {
+            // updateing score in html
+            this.updateScore = () => {
+                if (!Endabgabe.gameState.includes("over")) {
+                    //cut off everything except bevor =
+                    let scoreString = document.getElementById("score").innerHTML;
+                    let stringParts = scoreString.split(":");
+                    //convert number to type number
+                    let score = parseInt(stringParts[1]);
+                    console.log(score);
+                    //set new score
+                    score++;
+                    document.getElementById("score").innerHTML = "score: " + score.toString();
+                    f.Time.game.setTimer(3000, 1, this.updateScore);
+                }
+            };
             this.timer = new f.Time();
-            f.Time.game.setTimer(3000, 1, this.updateScore);
+            this.updateScore();
         }
         //updating timer in html
         updateTime() {
@@ -16,19 +31,6 @@ var Endabgabe;
             timeObject.innerHTML = "timer: " + minutes + ":" + seconds;
             if (minutes >= 1) {
                 Endabgabe.oneMinutePassed = true;
-            }
-        }
-        // updateing score in html
-        updateScore() {
-            if (!Endabgabe.gameState.includes("over")) {
-                //cut off everything except bevor =
-                let scoreString = document.getElementById("score").innerHTML;
-                let stringParts = scoreString.split(":");
-                //convert number to type number
-                let score = parseInt(stringParts[1]);
-                //set new score
-                score++;
-                document.getElementById("score").innerHTML = "score: " + score.toString();
             }
         }
     }

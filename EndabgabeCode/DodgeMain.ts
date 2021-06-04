@@ -81,7 +81,6 @@ namespace Endabgabe {
         enemieOne.startIncreasingSpeed();
         startSettingTraps();
         startPlacingCoins();
-        timescore.updateScore();
         startBtn.blur(); //remove focus on button
         startBtn.disabled = true;
     }
@@ -137,19 +136,17 @@ namespace Endabgabe {
         /* collision character - enemie */
         for (let enemies of enemieNode.getChildren() as Enemie[]) {
             if (characterNode.checkCollision(enemies)) {
-                /*
                 setGameState("over");
                 f.Loop.stop();
                 let gameoverText: HTMLParagraphElement = document.createElement("p");
                 gameoverText.innerHTML = "Game Over";
                 document.getElementById("gameover").appendChild(gameoverText);
-                sound.playBackgroundMusic(false);*/
+                sound.playBackgroundMusic(false);
             }
         }
 
         /* collision character - trap */
         if (characterNode.checkCollision(trapNode)) {
-            /*
             if (trapActive) {
                 setGameState("over");
                 f.Loop.stop();
@@ -157,7 +154,7 @@ namespace Endabgabe {
                 gameoverText.innerHTML = "Game Over";
                 document.getElementById("gameover").appendChild(gameoverText);
                 sound.playBackgroundMusic(false);
-            }*/
+            }
         }
 
         /* collision enemie - trap */
@@ -169,16 +166,27 @@ namespace Endabgabe {
             }
         }
 
+        /* collision enemieOne - enemieTwo */
+        if (enemieTwo) {
+            if (enemieTwo.checkCollision(enemieOne)) {
+                enemieTwo.hitsTrap(enemieTwo.mtxLocal.translation.x, enemieTwo.mtxLocal.translation.y, enemieOne.mtxLocal.translation.x, enemieOne.mtxLocal.translation.y);
+                enemieOne.hitsTrap(enemieOne.mtxLocal.translation.x, enemieOne.mtxLocal.translation.y, enemieTwo.mtxLocal.translation.x, enemieTwo.mtxLocal.translation.y);
+            }
+        }
+
         /* collision character - coin */
         if (characterNode.checkCollision(coinNode)) {
             sound.playSound(SoundList.collectCoin);
             rootNode.removeChild(coinNode);
             //ScoreIncrease to prevent multiple increases of score at the same coin
             if (scoreIncrease) {
+                //increase Bonus speed
+                bonusSpeedFromCoins = bonusSpeedFromCoins + 0.15;
+                characterNode.addBonusSpeed();
+
                 //cut off everything except bevor =
                 let scoreString: string = document.getElementById("score").innerHTML;
                 let stringParts: string[] = scoreString.split(":");
-
                 //convert number to type number
                 let score: number = parseInt(stringParts[1]);
                 //set new score
@@ -225,6 +233,7 @@ namespace Endabgabe {
             f.Time.game.setTimer(externalData.configureCoins.spawningRate, 1, startPlacingCoins);
         }
         scoreIncrease = true;
+        speedIncrease = true;
     }
 
     function createSecondEnemie(): void {
