@@ -185,7 +185,7 @@ namespace Endabgabe {
             //ScoreIncrease to prevent multiple increases of score at the same coin
             if (scoreIncrease) {
                 //increase Bonus speed
-                bonusSpeedFromCoins = bonusSpeedFromCoins + 0.15;
+                bonusSpeedFromCoins = bonusSpeedFromCoins + 0.2;
                 characterNode.addBonusSpeed();
 
                 //cut off everything except bevor =

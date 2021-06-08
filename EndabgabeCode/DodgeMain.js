@@ -163,7 +163,7 @@ var Endabgabe;
             //ScoreIncrease to prevent multiple increases of score at the same coin
             if (scoreIncrease) {
                 //increase Bonus speed
-                Endabgabe.bonusSpeedFromCoins = Endabgabe.bonusSpeedFromCoins + 0.15;
+                Endabgabe.bonusSpeedFromCoins = Endabgabe.bonusSpeedFromCoins + 0.2;
                 characterNode.addBonusSpeed();
                 //cut off everything except bevor =
                 let scoreString = document.getElementById("score").innerHTML;
