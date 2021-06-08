@@ -4,6 +4,9 @@ namespace Endabgabe {
     export let bonusSpeedFromCoins: number = 0;
 
     export class Character extends QuadNode {
+        //static variable to load texture
+        public static texture: f.TextureImage = new f.TextureImage();
+
         //Variables
         private jmpReady: boolean = true;
         private speedCharacter: number = externalData.configureAvatar.movementSpeed;
@@ -11,11 +14,9 @@ namespace Endabgabe {
         private allowMoveRight: boolean = true;
         private allowMoveTop: boolean = true;
         private allowMoveDown: boolean = true;
-
-        private texture: f.TextureImage = new f.TextureImage("./Images/Avatar.png");
-        private material: f.Material = new f.Material("avatarMat", f.ShaderTexture, new f.CoatTextured(null, this.texture));
+        private material: f.Material = new f.Material("avatarMat", f.ShaderTexture, new f.CoatTextured(null, Character.texture));
         private textureNode: QuadNode = new QuadNode("textureNode", new f.Vector2(0, 0), new f.Vector2(1, 1));
-
+        
         public constructor() {
             super("character", new f.Vector2(0, 0), new f.Vector2(1, 1));
             //remove material given from quadnote
@@ -23,6 +24,11 @@ namespace Endabgabe {
             //add new image material
             this.textureNode.getComponent(f.ComponentMaterial).material = this.material;
             this.addChild(this.textureNode);
+        }
+
+        //Load Texture
+        public static async loadCharacterTexture(): Promise<void> {
+            await Character.texture.load("./Images/Avatar.png");
         }
 
         //setting permission to move (allowMove...) to false
@@ -109,7 +115,7 @@ namespace Endabgabe {
                 }
             }
 
-            //Jump (actually increasing speed instead of "jumping")
+            //Sprint (increasing speed)
             if (f.Keyboard.isPressedOne([f.KEYBOARD_CODE.SPACE])) {
                 if (this.jmpReady) {
                     this.speedCharacter = 50;

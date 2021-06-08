@@ -47,6 +47,10 @@ namespace Endabgabe {
         comCamera.mtxPivot.rotateY(180);
         comCamera.clrBackground = f.Color.CSS("white");
 
+        //Load Textures
+        await Character.loadCharacterTexture();
+        await Enemie.loadEnemieTexture();
+
         //creating children and adding them to rootNode
         sound = new Sounds();
         characterNode = new Character();

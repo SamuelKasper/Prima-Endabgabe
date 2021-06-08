@@ -2,11 +2,14 @@ namespace Endabgabe {
     import f = FudgeCore;
 
     export class Enemie extends QuadNode {
+        //static variable to load texture
+        public static texture: f.TextureImage = new f.TextureImage();
+
+        //Variables
         private speedEnemie: number = 5;
         private toggleX: number = 1;
         private toggleY: number = 1;
-        private texture: f.TextureImage = new f.TextureImage("./Images/Enemie.png");
-        private material: f.Material = new f.Material("enemieMat", f.ShaderTexture, new f.CoatTextured(null, this.texture));
+        private material: f.Material = new f.Material("enemieMat", f.ShaderTexture, new f.CoatTextured(null, Enemie.texture));
         private textureNode: QuadNode = new QuadNode("textureNode", new f.Vector2(0, 0), new f.Vector2(3, 3));
 
         constructor() {
@@ -16,6 +19,11 @@ namespace Endabgabe {
             //add new image material
             this.textureNode.getComponent(f.ComponentMaterial).material = this.material;
             this.addChild(this.textureNode);
+        }
+
+        //Load Texture
+        public static async loadEnemieTexture(): Promise<void> {
+            await Enemie.texture.load("./Images/Enemie.png");
         }
 
         //moves the enemie

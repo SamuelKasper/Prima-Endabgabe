@@ -40,6 +40,9 @@ var Endabgabe;
         comCamera.mtxPivot.translateY(0);
         comCamera.mtxPivot.rotateY(180);
         comCamera.clrBackground = f.Color.CSS("white");
+        //Load Textures
+        await Endabgabe.Character.loadCharacterTexture();
+        await Endabgabe.Enemie.loadEnemieTexture();
         //creating children and adding them to rootNode
         sound = new Endabgabe.Sounds();
         characterNode = new Endabgabe.Character();

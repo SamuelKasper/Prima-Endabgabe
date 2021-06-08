@@ -14,8 +14,7 @@ var Endabgabe;
             this.allowMoveRight = true;
             this.allowMoveTop = true;
             this.allowMoveDown = true;
-            this.texture = new f.TextureImage("./Images/Avatar.png");
-            this.material = new f.Material("avatarMat", f.ShaderTexture, new f.CoatTextured(null, this.texture));
+            this.material = new f.Material("avatarMat", f.ShaderTexture, new f.CoatTextured(null, Character.texture));
             this.textureNode = new Endabgabe.QuadNode("textureNode", new f.Vector2(0, 0), new f.Vector2(1, 1));
             //moves the character
             this.moveCharacter = () => {
@@ -45,7 +44,7 @@ var Endabgabe;
                         this.setRectPosition();
                     }
                 }
-                //Jump (actually increasing speed instead of "jumping")
+                //Sprint (increasing speed)
                 if (f.Keyboard.isPressedOne([f.KEYBOARD_CODE.SPACE])) {
                     if (this.jmpReady) {
                         this.speedCharacter = 50;
@@ -69,6 +68,10 @@ var Endabgabe;
             //add new image material
             this.textureNode.getComponent(f.ComponentMaterial).material = this.material;
             this.addChild(this.textureNode);
+        }
+        //Load Texture
+        static async loadCharacterTexture() {
+            await Character.texture.load("./Images/Avatar.png");
         }
         //setting permission to move (allowMove...) to false
         disableMove(direction) {
@@ -131,6 +134,8 @@ var Endabgabe;
             }
         }
     }
+    //static variable to load texture
+    Character.texture = new f.TextureImage();
     Endabgabe.Character = Character;
 })(Endabgabe || (Endabgabe = {}));
 //# sourceMappingURL=Character.js.map
