@@ -31,6 +31,7 @@ namespace Endabgabe {
     export let externalData: ExternalData;
 
     async function init(): Promise<void> {
+        //load data from external file
         await loadExternalData("./ExternalData/externalData.json");
 
         const canvas: HTMLCanvasElement = document.querySelector("canvas");
@@ -47,7 +48,7 @@ namespace Endabgabe {
         comCamera.mtxPivot.rotateY(180);
         comCamera.clrBackground = f.Color.CSS("white");
 
-        //Load Textures
+        //load textures
         await Character.loadCharacterTexture();
         await Enemie.loadEnemieTexture();
 
@@ -71,11 +72,13 @@ namespace Endabgabe {
         resetBtn.addEventListener("click", hndResetButton);
     }
 
+    //function to load external data into externalData object
     async function loadExternalData(_url: string): Promise<void> {
         let response: Response = await fetch(_url);
         externalData = await response.json();
     }
 
+    //when start button is clicked
     function hndStartButton(): void {
         sound.playBackgroundMusic(true);
         f.Loop.start(f.LOOP_MODE.TIME_REAL, 60);
@@ -89,6 +92,7 @@ namespace Endabgabe {
         startBtn.disabled = true;
     }
 
+    //reload if reload button is clicked
     function hndResetButton(): void {
         location.reload();
     }
@@ -236,6 +240,7 @@ namespace Endabgabe {
         if (!gameState.includes("over")) {
             f.Time.game.setTimer(externalData.configureCoins.spawningRate, 1, startPlacingCoins);
         }
+        //enable scoreInrease & speedIncrease after creating new coin
         scoreIncrease = true;
         speedIncrease = true;
     }

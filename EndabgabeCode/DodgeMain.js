@@ -28,6 +28,7 @@ var Endabgabe;
     let timescore;
     Endabgabe.trapActive = false;
     async function init() {
+        //load data from external file
         await loadExternalData("./ExternalData/externalData.json");
         const canvas = document.querySelector("canvas");
         startBtn = document.getElementById("startBtn");
@@ -40,7 +41,7 @@ var Endabgabe;
         comCamera.mtxPivot.translateY(0);
         comCamera.mtxPivot.rotateY(180);
         comCamera.clrBackground = f.Color.CSS("white");
-        //Load Textures
+        //load textures
         await Endabgabe.Character.loadCharacterTexture();
         await Endabgabe.Enemie.loadEnemieTexture();
         //creating children and adding them to rootNode
@@ -60,10 +61,12 @@ var Endabgabe;
         startBtn.addEventListener("click", hndStartButton);
         resetBtn.addEventListener("click", hndResetButton);
     }
+    //function to load external data into externalData object
     async function loadExternalData(_url) {
         let response = await fetch(_url);
         Endabgabe.externalData = await response.json();
     }
+    //when start button is clicked
     function hndStartButton() {
         sound.playBackgroundMusic(true);
         f.Loop.start(f.LOOP_MODE.TIME_REAL, 60);
@@ -76,6 +79,7 @@ var Endabgabe;
         startBtn.blur(); //remove focus on button
         startBtn.disabled = true;
     }
+    //reload if reload button is clicked
     function hndResetButton() {
         location.reload();
     }
@@ -209,6 +213,7 @@ var Endabgabe;
         if (!Endabgabe.gameState.includes("over")) {
             f.Time.game.setTimer(Endabgabe.externalData.configureCoins.spawningRate, 1, startPlacingCoins);
         }
+        //enable scoreInrease & speedIncrease after creating new coin
         scoreIncrease = true;
         Endabgabe.speedIncrease = true;
     }
