@@ -1,6 +1,5 @@
 namespace Endabgabe {
     import f = FudgeCore;
-
     export class Enemie extends QuadNode {
         //static variable to load texture
         public static texture: f.TextureImage = new f.TextureImage();

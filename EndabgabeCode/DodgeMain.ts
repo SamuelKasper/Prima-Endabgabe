@@ -184,10 +184,10 @@ namespace Endabgabe {
 
         /* collision character - coin */
         if (characterNode.checkCollision(coinNode)) {
-            sound.playSound(SoundList.collectCoin);
             rootNode.removeChild(coinNode);
             //ScoreIncrease to prevent multiple increases of score at the same coin
             if (scoreIncrease) {
+                sound.playSound(SoundList.collectCoin);
                 //increase Bonus speed
                 bonusSpeedFromCoins = bonusSpeedFromCoins + 0.2;
                 characterNode.addBonusSpeed();

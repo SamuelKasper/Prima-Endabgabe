@@ -162,10 +162,10 @@ var Endabgabe;
         }
         /* collision character - coin */
         if (characterNode.checkCollision(coinNode)) {
-            sound.playSound(Endabgabe.SoundList.collectCoin);
             rootNode.removeChild(coinNode);
             //ScoreIncrease to prevent multiple increases of score at the same coin
             if (scoreIncrease) {
+                sound.playSound(Endabgabe.SoundList.collectCoin);
                 //increase Bonus speed
                 Endabgabe.bonusSpeedFromCoins = Endabgabe.bonusSpeedFromCoins + 0.2;
                 characterNode.addBonusSpeed();
