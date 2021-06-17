@@ -76,8 +76,6 @@ namespace Dodge {
 
         //increase enemie speed every 10 sec until max of speed 50
         public startIncreasingSpeed = (): void => {
-            console.log("Enemie speed: " + this.speedEnemie);
-            console.log("Enemie rotation: " + (7 + 0.25 * this.speedEnemie));
             if (this.speedEnemie < externalData.configureEnemie.maxSpeed) {
                 this.speedEnemie += 1;
             }

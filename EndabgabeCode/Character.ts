@@ -132,8 +132,6 @@ namespace Dodge {
             if (speedIncrease) {
                 if (this.speedCharacter < 30) {
                     this.speedCharacter = this.speedCharacter + bonusSpeedFromCoins;
-                    console.log("bonus speed: " + bonusSpeedFromCoins);
-                    console.log("speed character: " + this.speedCharacter);
                     speedIncrease = false;
                 }
             }

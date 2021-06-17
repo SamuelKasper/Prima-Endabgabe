@@ -22,8 +22,6 @@ var Dodge;
             };
             //increase enemie speed every 10 sec until max of speed 50
             this.startIncreasingSpeed = () => {
-                console.log("Enemie speed: " + this.speedEnemie);
-                console.log("Enemie rotation: " + (7 + 0.25 * this.speedEnemie));
                 if (this.speedEnemie < Dodge.externalData.configureEnemie.maxSpeed) {
                     this.speedEnemie += 1;
                 }

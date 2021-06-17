@@ -128,8 +128,6 @@ var Dodge;
             if (Dodge.speedIncrease) {
                 if (this.speedCharacter < 30) {
                     this.speedCharacter = this.speedCharacter + Dodge.bonusSpeedFromCoins;
-                    console.log("bonus speed: " + Dodge.bonusSpeedFromCoins);
-                    console.log("speed character: " + this.speedCharacter);
                     Dodge.speedIncrease = false;
                 }
             }

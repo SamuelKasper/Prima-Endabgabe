@@ -28,7 +28,6 @@ namespace Dodge {
                 let stringParts: string[] = scoreString.split(":");
                 //convert number to type number
                 let score: number = parseInt(stringParts[1]);
-                console.log(score);
                 //set new score
                 score++;
                 document.getElementById("score").innerHTML = "score: " + score.toString();
