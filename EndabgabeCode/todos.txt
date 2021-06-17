@@ -15,6 +15,3 @@ Standardeinstellungen:
         "activationTime": 1500
     }
 }
-
-Anderes:
-- Bilder zu spielbeginn laden
