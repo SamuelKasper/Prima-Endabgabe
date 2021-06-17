@@ -20,7 +20,7 @@ namespace Dodge {
             }
         }
 
-        // updateing score in html
+        // updating score in html
         public updateScore = (): void => {
             if (!gameState.includes("over")) {
                 //cut off everything except bevor =

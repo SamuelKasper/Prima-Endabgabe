@@ -39,7 +39,7 @@ namespace Dodge {
         resetBtn = <HTMLButtonElement>document.getElementById("resetBtn");
 
         //set gamestate
-        setGameState("waiting for start");
+        setGameState("Waiting for start");
 
         //create and position camera
         let comCamera: f.ComponentCamera = new f.ComponentCamera();
@@ -72,13 +72,13 @@ namespace Dodge {
         resetBtn.addEventListener("click", hndResetButton);
     }
 
-    //function to load external data into externalData object
+    //load external data into externalData object
     async function loadExternalData(_url: string): Promise<void> {
         let response: Response = await fetch(_url);
         externalData = await response.json();
     }
 
-    //when start button is clicked
+    //start if button is clicked
     function hndStartButton(): void {
         sound.playBackgroundMusic(true);
         f.Loop.start(f.LOOP_MODE.TIME_REAL, 60);
@@ -88,11 +88,12 @@ namespace Dodge {
         enemieOne.startIncreasingSpeed();
         startSettingTraps();
         startPlacingCoins();
-        startBtn.blur(); //remove focus on button
+        //remove focus on button
+        startBtn.blur(); 
         startBtn.disabled = true;
     }
 
-    //reload if reload button is clicked
+    //reload if button is clicked
     function hndResetButton(): void {
         location.reload();
     }
@@ -185,7 +186,7 @@ namespace Dodge {
         /* collision character - coin */
         if (characterNode.checkCollision(coinNode)) {
             rootNode.removeChild(coinNode);
-            //ScoreIncrease to prevent multiple increases of score at the same coin
+            //scoreIncrease to prevent multiple increases of score at the same coin
             if (scoreIncrease) {
                 sound.playSound(SoundList.collectCoin);
                 //increase Bonus speed
@@ -211,7 +212,7 @@ namespace Dodge {
         document.getElementById("state").innerHTML = "Gamestate: " + gameState;
     }
 
-    //setting Traps at the players position
+    //setting traps at the players position
     function startSettingTraps(): void {
         //remove recent trap and disable trapActive
         rootNode.removeChild(trapNode);
@@ -245,6 +246,7 @@ namespace Dodge {
         speedIncrease = true;
     }
 
+    //create a second enemy
     function createSecondEnemie(): void {
         if (oneMinutePassed == true) {
             if (!enemieTwo) {

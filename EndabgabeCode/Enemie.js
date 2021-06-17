@@ -5,7 +5,7 @@ var Dodge;
     class Enemie extends Dodge.QuadNode {
         constructor() {
             super("enemie", new f.Vector2(0, 4), new f.Vector2(3, 3));
-            //Variables
+            //variables
             this.speedEnemie = 5;
             this.toggleX = 1;
             this.toggleY = 1;
@@ -37,7 +37,7 @@ var Dodge;
             this.textureNode.getComponent(f.ComponentMaterial).material = this.material;
             this.addChild(this.textureNode);
         }
-        //Load Texture
+        //load texture
         static async loadEnemieTexture() {
             await Enemie.texture.load("./Images/Enemie.png");
         }

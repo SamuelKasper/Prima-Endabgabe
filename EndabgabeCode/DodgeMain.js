@@ -34,7 +34,7 @@ var Dodge;
         startBtn = document.getElementById("startBtn");
         resetBtn = document.getElementById("resetBtn");
         //set gamestate
-        setGameState("waiting for start");
+        setGameState("Waiting for start");
         //create and position camera
         let comCamera = new f.ComponentCamera();
         comCamera.mtxPivot.translateZ(40);
@@ -61,12 +61,12 @@ var Dodge;
         startBtn.addEventListener("click", hndStartButton);
         resetBtn.addEventListener("click", hndResetButton);
     }
-    //function to load external data into externalData object
+    //load external data into externalData object
     async function loadExternalData(_url) {
         let response = await fetch(_url);
         Dodge.externalData = await response.json();
     }
-    //when start button is clicked
+    //start if button is clicked
     function hndStartButton() {
         sound.playBackgroundMusic(true);
         f.Loop.start(f.LOOP_MODE.TIME_REAL, 60);
@@ -76,10 +76,11 @@ var Dodge;
         enemieOne.startIncreasingSpeed();
         startSettingTraps();
         startPlacingCoins();
-        startBtn.blur(); //remove focus on button
+        //remove focus on button
+        startBtn.blur();
         startBtn.disabled = true;
     }
-    //reload if reload button is clicked
+    //reload if button is clicked
     function hndResetButton() {
         location.reload();
     }
@@ -163,7 +164,7 @@ var Dodge;
         /* collision character - coin */
         if (characterNode.checkCollision(coinNode)) {
             rootNode.removeChild(coinNode);
-            //ScoreIncrease to prevent multiple increases of score at the same coin
+            //scoreIncrease to prevent multiple increases of score at the same coin
             if (scoreIncrease) {
                 sound.playSound(Dodge.SoundList.collectCoin);
                 //increase Bonus speed
@@ -186,7 +187,7 @@ var Dodge;
         Dodge.gameState = state;
         document.getElementById("state").innerHTML = "Gamestate: " + Dodge.gameState;
     }
-    //setting Traps at the players position
+    //setting traps at the players position
     function startSettingTraps() {
         //remove recent trap and disable trapActive
         rootNode.removeChild(trapNode);
@@ -217,6 +218,7 @@ var Dodge;
         scoreIncrease = true;
         Dodge.speedIncrease = true;
     }
+    //create a second enemy
     function createSecondEnemie() {
         if (Dodge.oneMinutePassed == true) {
             if (!enemieTwo) {

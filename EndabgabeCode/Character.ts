@@ -7,7 +7,7 @@ namespace Dodge {
         //static variable to load texture
         public static texture: f.TextureImage = new f.TextureImage();
 
-        //Variables
+        //variables
         private jmpReady: boolean = true;
         private speedCharacter: number = externalData.configureAvatar.movementSpeed;
         private allowMoveLeft: boolean = true;
@@ -26,7 +26,7 @@ namespace Dodge {
             this.addChild(this.textureNode);
         }
 
-        //Load Texture
+        //load Texture
         public static async loadCharacterTexture(): Promise<void> {
             await Character.texture.load("./Images/Avatar.png");
         }
@@ -86,7 +86,7 @@ namespace Dodge {
         //moves the character
         public moveCharacter = (): void => {
             let offset: number = this.speedCharacter * f.Loop.timeFrameReal / 1000;
-            //Move character
+            //move character
             if (f.Keyboard.isPressedOne([f.KEYBOARD_CODE.A, f.KEYBOARD_CODE.ARROW_LEFT])) {
                 if (this.allowMoveLeft) {
                     this.mtxLocal.translateX(-offset);
@@ -115,7 +115,7 @@ namespace Dodge {
                 }
             }
 
-            //Sprint (increasing speed)
+            //sprint
             if (f.Keyboard.isPressedOne([f.KEYBOARD_CODE.SPACE])) {
                 if (this.jmpReady) {
                     this.speedCharacter = 50;
@@ -127,6 +127,7 @@ namespace Dodge {
             }
         }
 
+        //inrease character speed after collecting coins
         public addBonusSpeed(): void {
             if (speedIncrease) {
                 if (this.speedCharacter < 30) {
@@ -138,12 +139,12 @@ namespace Dodge {
             }
         }
 
-        //reset movement speed after "jump"
+        //reset movement speed after sprint
         public resetSpeed = (): void => {
             this.speedCharacter = externalData.configureAvatar.movementSpeed + bonusSpeedFromCoins;
         }
 
-        //waiting for permission to "jump" again
+        //waiting for permission to sprint again
         public waitForJmpReady = (): void => {
             this.jmpReady = true;
         }

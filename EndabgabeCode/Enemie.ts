@@ -4,7 +4,7 @@ namespace Dodge {
         //static variable to load texture
         public static texture: f.TextureImage = new f.TextureImage();
 
-        //Variables
+        //variables
         private speedEnemie: number = 5;
         private toggleX: number = 1;
         private toggleY: number = 1;
@@ -20,7 +20,7 @@ namespace Dodge {
             this.addChild(this.textureNode);
         }
 
-        //Load Texture
+        //load texture
         public static async loadEnemieTexture(): Promise<void> {
             await Enemie.texture.load("./Images/Enemie.png");
         }

@@ -4,7 +4,7 @@ var Dodge;
     var f = FudgeCore;
     class TimeScore {
         constructor() {
-            // updateing score in html
+            // updating score in html
             this.updateScore = () => {
                 if (!Dodge.gameState.includes("over")) {
                     //cut off everything except bevor =

@@ -7,7 +7,7 @@ var Dodge;
     class Character extends Dodge.QuadNode {
         constructor() {
             super("character", new f.Vector2(0, 0), new f.Vector2(1, 1));
-            //Variables
+            //variables
             this.jmpReady = true;
             this.speedCharacter = Dodge.externalData.configureAvatar.movementSpeed;
             this.allowMoveLeft = true;
@@ -19,7 +19,7 @@ var Dodge;
             //moves the character
             this.moveCharacter = () => {
                 let offset = this.speedCharacter * f.Loop.timeFrameReal / 1000;
-                //Move character
+                //move character
                 if (f.Keyboard.isPressedOne([f.KEYBOARD_CODE.A, f.KEYBOARD_CODE.ARROW_LEFT])) {
                     if (this.allowMoveLeft) {
                         this.mtxLocal.translateX(-offset);
@@ -44,7 +44,7 @@ var Dodge;
                         this.setRectPosition();
                     }
                 }
-                //Sprint (increasing speed)
+                //sprint
                 if (f.Keyboard.isPressedOne([f.KEYBOARD_CODE.SPACE])) {
                     if (this.jmpReady) {
                         this.speedCharacter = 50;
@@ -55,11 +55,11 @@ var Dodge;
                     }
                 }
             };
-            //reset movement speed after "jump"
+            //reset movement speed after sprint
             this.resetSpeed = () => {
                 this.speedCharacter = Dodge.externalData.configureAvatar.movementSpeed + Dodge.bonusSpeedFromCoins;
             };
-            //waiting for permission to "jump" again
+            //waiting for permission to sprint again
             this.waitForJmpReady = () => {
                 this.jmpReady = true;
             };
@@ -69,7 +69,7 @@ var Dodge;
             this.textureNode.getComponent(f.ComponentMaterial).material = this.material;
             this.addChild(this.textureNode);
         }
-        //Load Texture
+        //load Texture
         static async loadCharacterTexture() {
             await Character.texture.load("./Images/Avatar.png");
         }
@@ -123,6 +123,7 @@ var Dodge;
                     break;
             }
         }
+        //inrease character speed after collecting coins
         addBonusSpeed() {
             if (Dodge.speedIncrease) {
                 if (this.speedCharacter < 30) {
