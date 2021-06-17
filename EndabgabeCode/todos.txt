@@ -15,3 +15,5 @@ Standardeinstellungen:
         "activationTime": 1500
     }
 }
+
+
