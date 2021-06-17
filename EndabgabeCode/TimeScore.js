@@ -1,12 +1,12 @@
 "use strict";
-var Endabgabe;
-(function (Endabgabe) {
+var Dodge;
+(function (Dodge) {
     var f = FudgeCore;
     class TimeScore {
         constructor() {
             // updateing score in html
             this.updateScore = () => {
-                if (!Endabgabe.gameState.includes("over")) {
+                if (!Dodge.gameState.includes("over")) {
                     //cut off everything except bevor =
                     let scoreString = document.getElementById("score").innerHTML;
                     let stringParts = scoreString.split(":");
@@ -30,10 +30,10 @@ var Endabgabe;
             let minutes = Math.floor(timeInSeconds / 60);
             timeObject.innerHTML = "timer: " + minutes + ":" + seconds;
             if (minutes >= 1) {
-                Endabgabe.oneMinutePassed = true;
+                Dodge.oneMinutePassed = true;
             }
         }
     }
-    Endabgabe.TimeScore = TimeScore;
-})(Endabgabe || (Endabgabe = {}));
+    Dodge.TimeScore = TimeScore;
+})(Dodge || (Dodge = {}));
 //# sourceMappingURL=TimeScore.js.map

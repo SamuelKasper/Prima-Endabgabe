@@ -1,4 +1,4 @@
-namespace Endabgabe {
+namespace Dodge {
     export interface ConfigureEnemie {
         maxSpeed: number;
     }

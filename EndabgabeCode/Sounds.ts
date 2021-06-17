@@ -1,4 +1,4 @@
-namespace Endabgabe {
+namespace Dodge {
     import f = FudgeCore;
 
     export enum SoundList { collectCoin, settingTrap }

@@ -1,12 +1,12 @@
 "use strict";
-var Endabgabe;
-(function (Endabgabe) {
+var Dodge;
+(function (Dodge) {
     var f = FudgeCore;
     let SoundList;
     (function (SoundList) {
         SoundList[SoundList["collectCoin"] = 0] = "collectCoin";
         SoundList[SoundList["settingTrap"] = 1] = "settingTrap";
-    })(SoundList = Endabgabe.SoundList || (Endabgabe.SoundList = {}));
+    })(SoundList = Dodge.SoundList || (Dodge.SoundList = {}));
     class Sounds {
         constructor() {
             this.music = new f.Audio("Audio/Final.mp3");
@@ -27,6 +27,6 @@ var Endabgabe;
             this.cmpBackgroundMusic.play(_state);
         }
     }
-    Endabgabe.Sounds = Sounds;
-})(Endabgabe || (Endabgabe = {}));
+    Dodge.Sounds = Sounds;
+})(Dodge || (Dodge = {}));
 //# sourceMappingURL=Sounds.js.map

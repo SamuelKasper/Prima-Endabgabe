@@ -1,4 +1,4 @@
-namespace Endabgabe {
+namespace Dodge {
     import f = FudgeCore;
     export class MapBorder extends QuadNode {
         constructor(name: string, pos: f.Vector2, size: f.Vector2) {

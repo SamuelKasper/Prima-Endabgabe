@@ -1,21 +1,21 @@
 "use strict";
-var Endabgabe;
-(function (Endabgabe) {
+var Dodge;
+(function (Dodge) {
     var f = FudgeCore;
-    Endabgabe.speedIncrease = true;
-    Endabgabe.bonusSpeedFromCoins = 0;
-    class Character extends Endabgabe.QuadNode {
+    Dodge.speedIncrease = true;
+    Dodge.bonusSpeedFromCoins = 0;
+    class Character extends Dodge.QuadNode {
         constructor() {
             super("character", new f.Vector2(0, 0), new f.Vector2(1, 1));
             //Variables
             this.jmpReady = true;
-            this.speedCharacter = Endabgabe.externalData.configureAvatar.movementSpeed;
+            this.speedCharacter = Dodge.externalData.configureAvatar.movementSpeed;
             this.allowMoveLeft = true;
             this.allowMoveRight = true;
             this.allowMoveTop = true;
             this.allowMoveDown = true;
             this.material = new f.Material("avatarMat", f.ShaderTexture, new f.CoatTextured(null, Character.texture));
-            this.textureNode = new Endabgabe.QuadNode("textureNode", new f.Vector2(0, 0), new f.Vector2(1, 1));
+            this.textureNode = new Dodge.QuadNode("textureNode", new f.Vector2(0, 0), new f.Vector2(1, 1));
             //moves the character
             this.moveCharacter = () => {
                 let offset = this.speedCharacter * f.Loop.timeFrameReal / 1000;
@@ -57,7 +57,7 @@ var Endabgabe;
             };
             //reset movement speed after "jump"
             this.resetSpeed = () => {
-                this.speedCharacter = Endabgabe.externalData.configureAvatar.movementSpeed + Endabgabe.bonusSpeedFromCoins;
+                this.speedCharacter = Dodge.externalData.configureAvatar.movementSpeed + Dodge.bonusSpeedFromCoins;
             };
             //waiting for permission to "jump" again
             this.waitForJmpReady = () => {
@@ -124,18 +124,18 @@ var Endabgabe;
             }
         }
         addBonusSpeed() {
-            if (Endabgabe.speedIncrease) {
+            if (Dodge.speedIncrease) {
                 if (this.speedCharacter < 30) {
-                    this.speedCharacter = this.speedCharacter + Endabgabe.bonusSpeedFromCoins;
-                    console.log("bonus speed: " + Endabgabe.bonusSpeedFromCoins);
+                    this.speedCharacter = this.speedCharacter + Dodge.bonusSpeedFromCoins;
+                    console.log("bonus speed: " + Dodge.bonusSpeedFromCoins);
                     console.log("speed character: " + this.speedCharacter);
-                    Endabgabe.speedIncrease = false;
+                    Dodge.speedIncrease = false;
                 }
             }
         }
     }
     //static variable to load texture
     Character.texture = new f.TextureImage();
-    Endabgabe.Character = Character;
-})(Endabgabe || (Endabgabe = {}));
+    Dodge.Character = Character;
+})(Dodge || (Dodge = {}));
 //# sourceMappingURL=Character.js.map

@@ -1,8 +1,8 @@
 "use strict";
-var Endabgabe;
-(function (Endabgabe) {
+var Dodge;
+(function (Dodge) {
     var f = FudgeCore;
-    class Enemie extends Endabgabe.QuadNode {
+    class Enemie extends Dodge.QuadNode {
         constructor() {
             super("enemie", new f.Vector2(0, 4), new f.Vector2(3, 3));
             //Variables
@@ -10,7 +10,7 @@ var Endabgabe;
             this.toggleX = 1;
             this.toggleY = 1;
             this.material = new f.Material("enemieMat", f.ShaderTexture, new f.CoatTextured(null, Enemie.texture));
-            this.textureNode = new Endabgabe.QuadNode("textureNode", new f.Vector2(0, 0), new f.Vector2(3, 3));
+            this.textureNode = new Dodge.QuadNode("textureNode", new f.Vector2(0, 0), new f.Vector2(3, 3));
             //moves the enemie
             this.moveEnemie = () => {
                 //rotate texture
@@ -24,10 +24,10 @@ var Endabgabe;
             this.startIncreasingSpeed = () => {
                 console.log("Enemie speed: " + this.speedEnemie);
                 console.log("Enemie rotation: " + (7 + 0.25 * this.speedEnemie));
-                if (this.speedEnemie < Endabgabe.externalData.configureEnemie.maxSpeed) {
+                if (this.speedEnemie < Dodge.externalData.configureEnemie.maxSpeed) {
                     this.speedEnemie += 1;
                 }
-                if (!Endabgabe.gameState.includes("over")) {
+                if (!Dodge.gameState.includes("over")) {
                     f.Time.game.setTimer(10000, 1, this.startIncreasingSpeed);
                 }
             };
@@ -83,6 +83,6 @@ var Endabgabe;
     }
     //static variable to load texture
     Enemie.texture = new f.TextureImage();
-    Endabgabe.Enemie = Enemie;
-})(Endabgabe || (Endabgabe = {}));
+    Dodge.Enemie = Enemie;
+})(Dodge || (Dodge = {}));
 //# sourceMappingURL=Enemie.js.map

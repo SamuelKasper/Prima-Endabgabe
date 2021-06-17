@@ -1,4 +1,4 @@
-namespace Endabgabe {
+namespace Dodge {
     import fc = FudgeCore;
     export class QuadNode extends fc.Node {
         static mesh: fc.Mesh = new fc.MeshQuad("Quad");

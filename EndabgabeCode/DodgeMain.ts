@@ -1,4 +1,4 @@
-namespace Endabgabe {
+namespace Dodge {
     import f = FudgeCore;
 
     window.addEventListener("load", init);
@@ -19,7 +19,7 @@ namespace Endabgabe {
     let leftBorderPosition: f.Vector2 = new f.Vector2(-16, 0);
     let rightBorderPosition: f.Vector2 = new f.Vector2(16, 0);
     let topBorderPosition: f.Vector2 = new f.Vector2(0, 16);
-    let downBorderPosition: f.Vector2 = new f.Vector2(0, -16);
+    let bottomBorderPosition: f.Vector2 = new f.Vector2(0, -16);
     let horizontalSize: f.Vector2 = new f.Vector2(1, 33);
     let verticalSize: f.Vector2 = new f.Vector2(32, 1);
     let startBtn: HTMLButtonElement;
@@ -113,7 +113,7 @@ namespace Endabgabe {
         leftMapBoarder = new MapBorder("leftBorder", leftBorderPosition, horizontalSize);
         rightMapBoarder = new MapBorder("rightBorder", rightBorderPosition, horizontalSize);
         topMapBoarder = new MapBorder("topBorder", topBorderPosition, verticalSize);
-        downMapBoarder = new MapBorder("downBorder", downBorderPosition, verticalSize);
+        downMapBoarder = new MapBorder("downBorder", bottomBorderPosition, verticalSize);
         mapBorderNode.addChild(leftMapBoarder);
         mapBorderNode.addChild(rightMapBoarder);
         mapBorderNode.addChild(topMapBoarder);

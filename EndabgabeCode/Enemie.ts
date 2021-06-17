@@ -1,4 +1,4 @@
-namespace Endabgabe {
+namespace Dodge {
     import f = FudgeCore;
     export class Enemie extends QuadNode {
         //static variable to load texture

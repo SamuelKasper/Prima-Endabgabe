@@ -1,4 +1,4 @@
-namespace Endabgabe {
+namespace Dodge {
     import f = FudgeCore;
     export let speedIncrease: boolean = true;
     export let bonusSpeedFromCoins: number = 0;

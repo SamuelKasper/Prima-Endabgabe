@@ -1,4 +1,4 @@
-namespace Endabgabe {
+namespace Dodge {
     import f = FudgeCore;
     export class Coins extends QuadNode {
         private texture: f.TextureImage = new f.TextureImage("./Images/Coin.png");

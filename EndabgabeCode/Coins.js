@@ -1,13 +1,13 @@
 "use strict";
-var Endabgabe;
-(function (Endabgabe) {
+var Dodge;
+(function (Dodge) {
     var f = FudgeCore;
-    class Coins extends Endabgabe.QuadNode {
+    class Coins extends Dodge.QuadNode {
         constructor(x, y) {
             super("coin", new f.Vector2(x, y), new f.Vector2(1, 1));
             this.texture = new f.TextureImage("./Images/Coin.png");
             this.material = new f.Material("coinMat", f.ShaderTexture, new f.CoatTextured(null, this.texture));
-            this.textureNode = new Endabgabe.QuadNode("textureNode", new f.Vector2(0, 0), new f.Vector2(1, 1));
+            this.textureNode = new Dodge.QuadNode("textureNode", new f.Vector2(0, 0), new f.Vector2(1, 1));
             //remove material given from quadnote
             this.removeComponent(this.getComponent(f.ComponentMaterial));
             //add new image material
@@ -15,6 +15,6 @@ var Endabgabe;
             this.addChild(this.textureNode);
         }
     }
-    Endabgabe.Coins = Coins;
-})(Endabgabe || (Endabgabe = {}));
+    Dodge.Coins = Coins;
+})(Dodge || (Dodge = {}));
 //# sourceMappingURL=Coins.js.map
