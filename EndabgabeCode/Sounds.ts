@@ -15,12 +15,12 @@ namespace Endabgabe {
             this.music = new f.Audio("Audio/Final.mp3");
             this.cmpBackgroundMusic = new f.ComponentAudio(this.music, true, false);
             this.cmpBackgroundMusic.connect(true);
-            this.cmpBackgroundMusic.volume = 1;
+            this.cmpBackgroundMusic.volume = 0.5;
 
             this.coin = new f.Audio("Audio/CoinSoundE.mp3");
             this.cmpCoinSound = new f.ComponentAudio(this.coin, false, false);
             this.cmpCoinSound.connect(true);
-            this.cmpCoinSound.volume = 1;
+            this.cmpCoinSound.volume = 0.5;
         }
 
         public playSound(_sound: SoundList): void {
