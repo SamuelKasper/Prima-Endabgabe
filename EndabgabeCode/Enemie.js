@@ -61,7 +61,6 @@ var Dodge;
             let difXAbs = Math.abs(difX);
             let difY = _enemieY - _trapY;
             let difYAbs = Math.abs(difY);
-            console.log("DifX: " + difXAbs, "DifY: " + difYAbs);
             //enemie from right or left
             if (difXAbs > difYAbs) {
                 if (difX > 0) {

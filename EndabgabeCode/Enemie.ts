@@ -58,7 +58,6 @@ namespace Dodge {
             let difXAbs: number = Math.abs(difX);
             let difY: number = _enemieY - _trapY;
             let difYAbs: number = Math.abs(difY);
-            console.log("DifX: " + difXAbs, "DifY: " + difYAbs);
 
             //enemie from right or left
             if (difXAbs > difYAbs) {
