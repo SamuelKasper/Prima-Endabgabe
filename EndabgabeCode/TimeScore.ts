@@ -14,7 +14,7 @@ namespace Dodge {
             let timeInSeconds: number = Math.floor(this.timer.get() / 1000);
             let seconds: number = timeInSeconds % 60;
             let minutes: number = Math.floor(timeInSeconds / 60);
-            timeObject.innerHTML = "timer: " + minutes + ":" + seconds;
+            timeObject.innerHTML = "Time: " + minutes + ":" + seconds;
             if (minutes >= 1) {
                 oneMinutePassed = true;
             }
@@ -30,7 +30,7 @@ namespace Dodge {
                 let score: number = parseInt(stringParts[1]);
                 //set new score
                 score++;
-                document.getElementById("score").innerHTML = "score: " + score.toString();
+                document.getElementById("score").innerHTML = "Score: " + score.toString();
                 f.Time.game.setTimer(3000, 1, this.updateScore);
             }
         }

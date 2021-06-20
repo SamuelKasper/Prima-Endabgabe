@@ -14,7 +14,7 @@ var Dodge;
                     let score = parseInt(stringParts[1]);
                     //set new score
                     score++;
-                    document.getElementById("score").innerHTML = "score: " + score.toString();
+                    document.getElementById("score").innerHTML = "Score: " + score.toString();
                     f.Time.game.setTimer(3000, 1, this.updateScore);
                 }
             };
@@ -27,7 +27,7 @@ var Dodge;
             let timeInSeconds = Math.floor(this.timer.get() / 1000);
             let seconds = timeInSeconds % 60;
             let minutes = Math.floor(timeInSeconds / 60);
-            timeObject.innerHTML = "timer: " + minutes + ":" + seconds;
+            timeObject.innerHTML = "Time: " + minutes + ":" + seconds;
             if (minutes >= 1) {
                 Dodge.oneMinutePassed = true;
             }
