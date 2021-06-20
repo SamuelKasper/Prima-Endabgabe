@@ -124,29 +124,28 @@ var Dodge;
                 }
             }
         }
-        /* collision character - enemie
-        for (let enemies of enemieNode.getChildren() as Enemie[]) {
+        /* collision character - enemie */
+        for (let enemies of enemieNode.getChildren()) {
             if (characterNode.checkCollision(enemies)) {
                 setGameState("over");
                 f.Loop.stop();
-                let gameoverText: HTMLParagraphElement = document.createElement("p");
+                let gameoverText = document.createElement("p");
                 gameoverText.innerHTML = "Game Over";
                 document.getElementById("gameover").appendChild(gameoverText);
                 sound.playBackgroundMusic(false);
             }
         }
-
-        /* collision character - trap
+        /* collision character - trap */
         if (characterNode.checkCollision(trapNode)) {
-            if (trapActive) {
+            if (Dodge.trapActive) {
                 setGameState("over");
                 f.Loop.stop();
-                let gameoverText: HTMLParagraphElement = document.createElement("p");
+                let gameoverText = document.createElement("p");
                 gameoverText.innerHTML = "Game Over";
                 document.getElementById("gameover").appendChild(gameoverText);
                 sound.playBackgroundMusic(false);
             }
-        }*/
+        }
         /* collision enemie - trap */
         for (let enemies of enemieNode.getChildren()) {
             if (enemies.checkCollision(trapNode)) {

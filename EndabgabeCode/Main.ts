@@ -142,7 +142,7 @@ namespace Dodge {
             }
         }
 
-        /* collision character - enemie 
+        /* collision character - enemie */
         for (let enemies of enemieNode.getChildren() as Enemie[]) {
             if (characterNode.checkCollision(enemies)) {
                 setGameState("over");
@@ -154,7 +154,7 @@ namespace Dodge {
             }
         }
 
-        /* collision character - trap 
+        /* collision character - trap */
         if (characterNode.checkCollision(trapNode)) {
             if (trapActive) {
                 setGameState("over");
@@ -164,7 +164,7 @@ namespace Dodge {
                 document.getElementById("gameover").appendChild(gameoverText);
                 sound.playBackgroundMusic(false);
             }
-        }*/
+        }
 
         /* collision enemie - trap */
         for (let enemies of enemieNode.getChildren() as Enemie[]) {
