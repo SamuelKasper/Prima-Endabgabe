@@ -124,28 +124,29 @@ var Dodge;
                 }
             }
         }
-        /* collision character - enemie */
-        for (let enemies of enemieNode.getChildren()) {
+        /* collision character - enemie
+        for (let enemies of enemieNode.getChildren() as Enemie[]) {
             if (characterNode.checkCollision(enemies)) {
                 setGameState("over");
                 f.Loop.stop();
-                let gameoverText = document.createElement("p");
+                let gameoverText: HTMLParagraphElement = document.createElement("p");
                 gameoverText.innerHTML = "Game Over";
                 document.getElementById("gameover").appendChild(gameoverText);
                 sound.playBackgroundMusic(false);
             }
         }
-        /* collision character - trap */
+
+        /* collision character - trap
         if (characterNode.checkCollision(trapNode)) {
-            if (Dodge.trapActive) {
+            if (trapActive) {
                 setGameState("over");
                 f.Loop.stop();
-                let gameoverText = document.createElement("p");
+                let gameoverText: HTMLParagraphElement = document.createElement("p");
                 gameoverText.innerHTML = "Game Over";
                 document.getElementById("gameover").appendChild(gameoverText);
                 sound.playBackgroundMusic(false);
             }
-        }
+        }*/
         /* collision enemie - trap */
         for (let enemies of enemieNode.getChildren()) {
             if (enemies.checkCollision(trapNode)) {
@@ -195,6 +196,7 @@ var Dodge;
         //create trapNode and add to root
         trapNode = new Dodge.Trap(characterNode.mtxLocal.translation.x, characterNode.mtxLocal.translation.y);
         rootNode.addChild(trapNode);
+        trapNode.setRectPosition();
         //activate trap after 1 second and start timer for the next trap
         if (!Dodge.gameState.includes("over")) {
             f.Time.game.setTimer(Dodge.externalData.configureTraps.activationTime, 1, trapNode.activateTrap);

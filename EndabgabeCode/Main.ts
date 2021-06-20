@@ -89,7 +89,7 @@ namespace Dodge {
         startSettingTraps();
         startPlacingCoins();
         //remove focus on button
-        startBtn.blur(); 
+        startBtn.blur();
         startBtn.disabled = true;
     }
 
@@ -142,7 +142,7 @@ namespace Dodge {
             }
         }
 
-        /* collision character - enemie */
+        /* collision character - enemie 
         for (let enemies of enemieNode.getChildren() as Enemie[]) {
             if (characterNode.checkCollision(enemies)) {
                 setGameState("over");
@@ -154,7 +154,7 @@ namespace Dodge {
             }
         }
 
-        /* collision character - trap */
+        /* collision character - trap 
         if (characterNode.checkCollision(trapNode)) {
             if (trapActive) {
                 setGameState("over");
@@ -164,7 +164,7 @@ namespace Dodge {
                 document.getElementById("gameover").appendChild(gameoverText);
                 sound.playBackgroundMusic(false);
             }
-        }
+        }*/
 
         /* collision enemie - trap */
         for (let enemies of enemieNode.getChildren() as Enemie[]) {
@@ -220,6 +220,7 @@ namespace Dodge {
         //create trapNode and add to root
         trapNode = new Trap(characterNode.mtxLocal.translation.x, characterNode.mtxLocal.translation.y);
         rootNode.addChild(trapNode);
+        trapNode.setRectPosition();
         //activate trap after 1 second and start timer for the next trap
         if (!gameState.includes("over")) {
             f.Time.game.setTimer(externalData.configureTraps.activationTime, 1, trapNode.activateTrap);

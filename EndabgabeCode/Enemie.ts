@@ -29,7 +29,6 @@ namespace Dodge {
         public moveEnemie = (): void => {
             //rotate texture
             this.textureNode.mtxLocal.rotateZ(7 + 0.25 * this.speedEnemie);
-
             let offsetEnemie: number = this.speedEnemie * f.Loop.timeFrameReal / 1000;
             this.mtxLocal.translateX(offsetEnemie * 1.3 * this.toggleX);
             this.mtxLocal.translateY(offsetEnemie * 1.7 * this.toggleY);
@@ -59,17 +58,21 @@ namespace Dodge {
             let difXAbs: number = Math.abs(difX);
             let difY: number = _enemieY - _trapY;
             let difYAbs: number = Math.abs(difY);
+            console.log("DifX: " + difXAbs, "DifY: " + difYAbs);
+
+            //enemie from right or left
             if (difXAbs > difYAbs) {
                 if (difX > 0) {
-                    this.toggleDirection("topBorder");
+                    this.toggleDirection("leftBorder");
                 } else {
-                    this.toggleDirection("downBorder");
+                    this.toggleDirection("rightBorder");
                 }
+            //enemie from top or bottom
             } else {
                 if (difY > 0) {
-                    this.toggleDirection("rightBorder");
+                    this.toggleDirection("downBorder");
                 } else {
-                    this.toggleDirection("leftBorder");
+                    this.toggleDirection("topBorder");
                 }
             }
         }

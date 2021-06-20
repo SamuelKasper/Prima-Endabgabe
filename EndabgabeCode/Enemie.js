@@ -61,20 +61,23 @@ var Dodge;
             let difXAbs = Math.abs(difX);
             let difY = _enemieY - _trapY;
             let difYAbs = Math.abs(difY);
+            console.log("DifX: " + difXAbs, "DifY: " + difYAbs);
+            //enemie from right or left
             if (difXAbs > difYAbs) {
                 if (difX > 0) {
-                    this.toggleDirection("topBorder");
+                    this.toggleDirection("leftBorder");
                 }
                 else {
-                    this.toggleDirection("downBorder");
+                    this.toggleDirection("rightBorder");
                 }
+                //enemie from top or bottom
             }
             else {
                 if (difY > 0) {
-                    this.toggleDirection("rightBorder");
+                    this.toggleDirection("downBorder");
                 }
                 else {
-                    this.toggleDirection("leftBorder");
+                    this.toggleDirection("topBorder");
                 }
             }
         }
