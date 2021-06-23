@@ -16,4 +16,6 @@ Standardeinstellungen:
     }
 }
 
-Wenn Enemie von rechts kommt dann rutscht der in trap rein
+-----TODOS-----
+-Archiv Updaten
+-Timer
