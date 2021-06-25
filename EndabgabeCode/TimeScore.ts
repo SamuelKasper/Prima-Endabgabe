@@ -11,7 +11,6 @@ namespace Dodge {
         //updating timer in html
         public updateTime(): void {
             let timeObject: HTMLParagraphElement = <HTMLParagraphElement>document.getElementById("time");
-
             let timeInSeconds: number = Math.floor(this.timer.get() / 1000);
             let seconds: number = timeInSeconds % 60;
             let minutes: number = Math.floor(timeInSeconds / 60);
@@ -23,7 +22,7 @@ namespace Dodge {
 
         // updating score in html
         public updateScore = (): void => {
-            if (!gameState.includes("over")) {
+            if (!gameState.includes("Over")) {
                 //cut off everything except bevor =
                 let scoreString: string = document.getElementById("score").innerHTML;
                 let stringParts: string[] = scoreString.split(":");

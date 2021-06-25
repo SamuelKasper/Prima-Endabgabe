@@ -6,7 +6,7 @@ var Dodge;
         constructor() {
             // updating score in html
             this.updateScore = () => {
-                if (!Dodge.gameState.includes("over")) {
+                if (!Dodge.gameState.includes("Over")) {
                     //cut off everything except bevor =
                     let scoreString = document.getElementById("score").innerHTML;
                     let stringParts = scoreString.split(":");
