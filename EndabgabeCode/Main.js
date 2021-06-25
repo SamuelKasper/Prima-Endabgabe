@@ -34,7 +34,7 @@ var Dodge;
         startBtn = document.getElementById("startBtn");
         resetBtn = document.getElementById("resetBtn");
         //set gamestate
-        setGameState("Waiting for start");
+        setGameState("Waiting");
         //create and position camera
         let comCamera = new f.ComponentCamera();
         comCamera.mtxPivot.translateZ(40);

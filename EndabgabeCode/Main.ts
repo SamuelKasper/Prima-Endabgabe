@@ -39,7 +39,7 @@ namespace Dodge {
         resetBtn = <HTMLButtonElement>document.getElementById("resetBtn");
 
         //set gamestate
-        setGameState("Waiting for start");
+        setGameState("Waiting");
 
         //create and position camera
         let comCamera: f.ComponentCamera = new f.ComponentCamera();
