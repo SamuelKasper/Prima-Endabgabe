@@ -124,7 +124,7 @@ var Dodge;
                 }
             }
         }
-        /* collision character - enemie */
+        /* collision character - enemie*/
         for (let enemies of enemieNode.getChildren()) {
             if (characterNode.checkCollision(enemies)) {
                 setGameState("over");

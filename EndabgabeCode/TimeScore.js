@@ -27,7 +27,7 @@ var Dodge;
             let timeInSeconds = Math.floor(this.timer.get() / 1000);
             let seconds = timeInSeconds % 60;
             let minutes = Math.floor(timeInSeconds / 60);
-            timeObject.innerHTML = "Time: " + minutes + ":" + seconds;
+            timeObject.innerHTML = "Time: " + String(minutes).padStart(2, "0") + ":" + String(seconds).padStart(2, "0");
             if (minutes >= 1) {
                 Dodge.oneMinutePassed = true;
             }

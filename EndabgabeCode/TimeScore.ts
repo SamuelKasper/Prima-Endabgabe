@@ -11,10 +11,11 @@ namespace Dodge {
         //updating timer in html
         public updateTime(): void {
             let timeObject: HTMLParagraphElement = <HTMLParagraphElement>document.getElementById("time");
+
             let timeInSeconds: number = Math.floor(this.timer.get() / 1000);
             let seconds: number = timeInSeconds % 60;
             let minutes: number = Math.floor(timeInSeconds / 60);
-            timeObject.innerHTML = "Time: " + minutes + ":" + seconds;
+            timeObject.innerHTML = "Time: " + String(minutes).padStart(2, "0") + ":" + String(seconds).padStart(2, "0");
             if (minutes >= 1) {
                 oneMinutePassed = true;
             }

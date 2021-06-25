@@ -18,4 +18,3 @@ Standardeinstellungen:
 
 -----TODOS-----
 -Archiv Updaten
--Timer
