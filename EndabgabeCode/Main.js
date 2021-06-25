@@ -71,7 +71,7 @@ var Dodge;
         sound.playBackgroundMusic(true);
         f.Loop.start(f.LOOP_MODE.TIME_REAL, 60);
         f.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, update);
-        setGameState("running");
+        setGameState("Running");
         timescore = new Dodge.TimeScore();
         enemieOne.startIncreasingSpeed();
         startSettingTraps();
@@ -127,7 +127,7 @@ var Dodge;
         /* collision character - enemie*/
         for (let enemies of enemieNode.getChildren()) {
             if (characterNode.checkCollision(enemies)) {
-                setGameState("over");
+                setGameState("Over");
                 f.Loop.stop();
                 let gameoverText = document.createElement("p");
                 gameoverText.innerHTML = "Game Over";
@@ -138,7 +138,7 @@ var Dodge;
         /* collision character - trap */
         if (characterNode.checkCollision(trapNode)) {
             if (Dodge.trapActive) {
-                setGameState("over");
+                setGameState("Over");
                 f.Loop.stop();
                 let gameoverText = document.createElement("p");
                 gameoverText.innerHTML = "Game Over";
@@ -197,7 +197,7 @@ var Dodge;
         rootNode.addChild(trapNode);
         trapNode.setRectPosition();
         //activate trap after 1 second and start timer for the next trap
-        if (!Dodge.gameState.includes("over")) {
+        if (!Dodge.gameState.includes("Over")) {
             f.Time.game.setTimer(Dodge.externalData.configureTraps.activationTime, 1, trapNode.activateTrap);
             f.Time.game.setTimer(Dodge.externalData.configureTraps.spawningRate, 1, startSettingTraps);
         }
@@ -212,7 +212,7 @@ var Dodge;
         coinNode = new Dodge.Coins(getRandomPosition(), getRandomPosition());
         rootNode.addChild(coinNode);
         //repeat if not game over
-        if (!Dodge.gameState.includes("over")) {
+        if (!Dodge.gameState.includes("Over")) {
             f.Time.game.setTimer(Dodge.externalData.configureCoins.spawningRate, 1, startPlacingCoins);
         }
         //enable scoreInrease & speedIncrease after creating new coin

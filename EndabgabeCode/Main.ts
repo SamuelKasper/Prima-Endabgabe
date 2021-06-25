@@ -83,7 +83,7 @@ namespace Dodge {
         sound.playBackgroundMusic(true);
         f.Loop.start(f.LOOP_MODE.TIME_REAL, 60);
         f.Loop.addEventListener(f.EVENT.LOOP_FRAME, update);
-        setGameState("running");
+        setGameState("Running");
         timescore = new TimeScore();
         enemieOne.startIncreasingSpeed();
         startSettingTraps();
@@ -145,7 +145,7 @@ namespace Dodge {
         /* collision character - enemie*/
         for (let enemies of enemieNode.getChildren() as Enemie[]) {
             if (characterNode.checkCollision(enemies)) {
-                setGameState("over");
+                setGameState("Over");
                 f.Loop.stop();
                 let gameoverText: HTMLParagraphElement = document.createElement("p");
                 gameoverText.innerHTML = "Game Over";
@@ -157,7 +157,7 @@ namespace Dodge {
         /* collision character - trap */
         if (characterNode.checkCollision(trapNode)) {
             if (trapActive) {
-                setGameState("over");
+                setGameState("Over");
                 f.Loop.stop();
                 let gameoverText: HTMLParagraphElement = document.createElement("p");
                 gameoverText.innerHTML = "Game Over";
@@ -222,7 +222,7 @@ namespace Dodge {
         rootNode.addChild(trapNode);
         trapNode.setRectPosition();
         //activate trap after 1 second and start timer for the next trap
-        if (!gameState.includes("over")) {
+        if (!gameState.includes("Over")) {
             f.Time.game.setTimer(externalData.configureTraps.activationTime, 1, trapNode.activateTrap);
             f.Time.game.setTimer(externalData.configureTraps.spawningRate, 1, startSettingTraps);
         }
@@ -239,7 +239,7 @@ namespace Dodge {
         rootNode.addChild(coinNode);
 
         //repeat if not game over
-        if (!gameState.includes("over")) {
+        if (!gameState.includes("Over")) {
             f.Time.game.setTimer(externalData.configureCoins.spawningRate, 1, startPlacingCoins);
         }
         //enable scoreInrease & speedIncrease after creating new coin
