@@ -3,8 +3,8 @@ var Dodge;
 (function (Dodge) {
     var f = FudgeCore;
     class Coins extends Dodge.QuadNode {
-        constructor(x, y) {
-            super("coin", new f.Vector2(x, y), new f.Vector2(1, 1));
+        constructor(_x, _y) {
+            super("coin", new f.Vector2(_x, _y), new f.Vector2(1, 1));
             this.texture = new f.TextureImage("./Images/Coin.png");
             this.material = new f.Material("coinMat", f.ShaderTexture, new f.CoatTextured(null, this.texture));
             this.textureNode = new Dodge.QuadNode("textureNode", new f.Vector2(0, 0), new f.Vector2(1, 1));

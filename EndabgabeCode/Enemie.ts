@@ -36,8 +36,8 @@ namespace Dodge {
         }
 
         //change direction
-        public toggleDirection(collisionAt: string): void {
-            switch (collisionAt) {
+        public toggleDirection(_collisionAt: string): void {
+            switch (_collisionAt) {
                 case "leftBorder":
                     this.toggleX = 1;
                     break;

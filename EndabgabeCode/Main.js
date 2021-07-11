@@ -183,8 +183,8 @@ var Dodge;
         }
     }
     //setting gameState
-    function setGameState(state) {
-        Dodge.gameState = state;
+    function setGameState(_state) {
+        Dodge.gameState = _state;
         document.getElementById("state").innerHTML = "Gamestate: " + Dodge.gameState;
     }
     //setting traps at the players position

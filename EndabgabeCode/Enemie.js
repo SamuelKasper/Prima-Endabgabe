@@ -40,8 +40,8 @@ var Dodge;
             await Enemie.texture.load("./Images/Enemie.png");
         }
         //change direction
-        toggleDirection(collisionAt) {
-            switch (collisionAt) {
+        toggleDirection(_collisionAt) {
+            switch (_collisionAt) {
                 case "leftBorder":
                     this.toggleX = 1;
                     break;

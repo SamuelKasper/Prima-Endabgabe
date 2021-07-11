@@ -3,8 +3,8 @@ var Dodge;
 (function (Dodge) {
     var f = FudgeCore;
     class Trap extends Dodge.QuadNode {
-        constructor(x, y) {
-            super("trap", new f.Vector2(x, y), new f.Vector2(2, 2));
+        constructor(_x, _y) {
+            super("trap", new f.Vector2(_x, _y), new f.Vector2(2, 2));
             this.textureTrap = new f.TextureImage("./Images/Trap.png");
             this.materialTrap = new f.Material("materialTrap", f.ShaderTexture, new f.CoatTextured(null, this.textureTrap));
             this.textureSpike = new f.TextureImage("./Images/Spike.png");

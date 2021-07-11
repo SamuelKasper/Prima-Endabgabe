@@ -207,8 +207,8 @@ namespace Dodge {
     }
 
     //setting gameState
-    function setGameState(state: string): void {
-        gameState = state;
+    function setGameState(_state: string): void {
+        gameState = _state;
         document.getElementById("state").innerHTML = "Gamestate: " + gameState;
     }
 

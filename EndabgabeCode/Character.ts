@@ -32,8 +32,8 @@ namespace Dodge {
         }
 
         //setting permission to move (allowMove...) to false
-        public disableMove(direction: string): void {
-            switch (direction) {
+        public disableMove(_direction: string): void {
+            switch (_direction) {
                 case "leftBorder":
                     this.allowMoveLeft = false;
                     //if behind border move back
@@ -66,8 +66,8 @@ namespace Dodge {
         }
 
         //setting permission to move (allowMove...) to true
-        public enableMove(direction: string): void {
-            switch (direction) {
+        public enableMove(_direction: string): void {
+            switch (_direction) {
                 case "leftBorder":
                     this.allowMoveLeft = true;
                     break;

@@ -74,8 +74,8 @@ var Dodge;
             await Character.texture.load("./Images/Avatar.png");
         }
         //setting permission to move (allowMove...) to false
-        disableMove(direction) {
-            switch (direction) {
+        disableMove(_direction) {
+            switch (_direction) {
                 case "leftBorder":
                     this.allowMoveLeft = false;
                     //if behind border move back
@@ -107,8 +107,8 @@ var Dodge;
             }
         }
         //setting permission to move (allowMove...) to true
-        enableMove(direction) {
-            switch (direction) {
+        enableMove(_direction) {
+            switch (_direction) {
                 case "leftBorder":
                     this.allowMoveLeft = true;
                     break;
